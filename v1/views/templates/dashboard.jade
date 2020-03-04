@@ -1,0 +1,74 @@
+aside.right-side
+  section.content-header
+    h1
+      i.fa.fa-dashboard
+      |  Dashboard
+  section.content
+    .row
+      .col-lg-3.col-xs-6
+        .small-box.bg-aqua
+          .inner
+            h3
+              | {{ dashboard.counts.users }}
+            p
+              | Users
+          .icon
+            i.ion.ion-person-stalker
+          a.small-box-footer
+            | Registered Users
+      .col-lg-3.col-xs-6
+        .small-box.bg-green
+          .inner
+            h3
+              | {{ dashboard.counts.species }}
+            p
+              | Species
+          .icon
+            i.ion.ion-bug
+          a.small-box-footer(ui-sref="species")
+            | More info 
+            i.fa.fa-arrow-circle-right
+      .col-lg-3.col-xs-6
+        .small-box.bg-yellow
+          .inner
+            h3
+              | {{ dashboard.counts.datasets }}
+            p
+              | Datasets
+          .icon
+            i.ion.ion-ios-list
+          a.small-box-footer(ui-sref="dataset")
+            | More info 
+            i.fa.fa-arrow-circle-right
+      .col-lg-3.col-xs-6
+        .small-box.bg-red
+          .inner
+            h3
+              | {{ dashboard.counts.bromeliads }}
+            p
+              | Bromeliads
+          .icon
+            i.ion.ion-leaf
+          a.small-box-footer(ui-sref="bromeliad")
+            | More info 
+            i.fa.fa-arrow-circle-right
+    
+    .row
+      .col-md-6
+        .box.box-primary
+          .box-header
+            h3.box-title 
+              i.fa.fa-info 
+              |  Announcements
+          .box-body
+            div(marked="dashboard.announcements")
+      .col-md-6
+        .box.box-success
+          .box-header
+            h3.box-title
+              i.fa.fa-history
+              |  Recent Activities
+            .box-tools.pull-right
+              a.btn.btn-sm.btn-default(ui-sref="history", href="") Show more
+          .box-body
+            .timeline-d(history="dashboard.history", comments="false")

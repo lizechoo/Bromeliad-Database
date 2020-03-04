@@ -1,0 +1,83 @@
+.modal-body.bromeliad.attribute {
+  margin: 0 15px 0 15px;
+  overflow-x: auto;
+  padding: 0;
+}
+
+.modal-body.bromeliad.attribute > table {
+  width: auto;
+}
+
+.modal-body.bromeliad.attribute > table > thead > tr > th {
+  white-space: nowrap;
+}
+
+.modal-body.bromeliad.attribute > table > tbody > tr > th {
+  white-space: nowrap;
+}
+
+.modal-body.bromeliad.attribute > table > tbody > tr > td {
+  white-space: nowrap;
+}
+
+.modal-body.bromeliad.attribute > table > thead > tr > td > input[type="text"] {
+  display: inline;
+  border: 0;
+  background-color: transparent;
+  outline: none;
+  width: 5em;
+}
+
+.modal-body.bromeliad.attribute > table > tbody > tr > td > input[type="text"] {
+  display: inline;
+  border: 0;
+  background-color: transparent;
+  outline: none;
+  width: 5em;
+}
+
+.modal-body.bromeliad.attribute > table > tbody > tr > td > a {
+  color: #ddd !important;
+}
+
+.modal-body.bromeliad.attribute > table > tbody > tr > td > a:hover {
+  color: #ccc !important;
+}
+
+.detritus-input {
+  display: inline;
+  border: 0;
+  background-color: transparent;
+  outline: none;
+  width: 90%;
+
+}
+
+.remove-x {
+  color: #ddd !important;
+  font-size: 0.8em;
+}
+
+.remove-x:hover {
+  color: #ccc !important;
+  font-size: 0.8em;
+}
+
+.bg-grey {
+  background: #777 !important;
+}
+
+.detritus-dry-mass-range {
+  background-color: #ffe4a6;
+  border-right: 3px solid #b3b3b3;
+  padding: 3px 10px 3px 10px;
+}
+
+.detritus-dry-mass-value {
+  padding: 3px 10px 3px 10px;
+}
+
+.detritus-dry-mass {
+  padding: 2px 10px 2px 0;
+  display: inline-block;
+}

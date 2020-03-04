@@ -1,0 +1,18 @@
+.box.box-primary.box-solid(style="margin-top: 150px")
+  .box-header
+    h3.box-title
+      i.fa.fa-upload 
+      span  Upload Profile Picture
+  .box-body
+    uploader(max-size="100000", on-upload="user.onUpload(file)", ng-if="!user.preview")
+    center
+      img.img-circle.avatar-img(ng-src="{{user.preview}}", ng-if="user.preview", style="width: 30%")
+    
+  .box-footer.no-padding
+    a.ok-button.confirm-buttons(ng-click="closeThisDialog()", href="", ng-if="!user.preview")
+      span Cancel
+    div(ng-if="user.preview")
+      a.confirm-left-button.confirm-buttons(ng-click="closeThisDialog()", href="")
+        span Cancel
+      a.confirm-right-button.confirm-buttons(ng-click="user.setAvatar()", href="")
+        span Use Picture

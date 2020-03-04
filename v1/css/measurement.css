@@ -1,0 +1,78 @@
+.measurement-box {
+  display: inline-block;
+  vertical-align: top;
+  width: 300px;
+  height: 250px;
+  margin: 10px 10px 15px 10px;
+}
+
+.measurement-box .box-body {
+  height: 200px;
+  overflow-y: scroll;
+}
+
+.category-range {
+  margin-left: 10px;
+  color: #999;
+}
+
+.measurement-box .box-body > small {
+  margin-right: 5px;
+}
+
+.measurement-box .box-header > h3 > a {
+  color: #000;
+}
+
+.measurement-box .box-header > h3 > i {
+  color: #333;
+  margin-right: 5px;
+}
+
+.measurement-box .box-header > h3 > a:hover {
+  color: #999;
+  text-decoration: underline;
+}
+
+.measurement-box .box-header .box-tools .pull-right > div {
+  color: #999;
+}
+
+.measurement-box .box-header .box-tools .pull-right > div > div {
+  margin-right: 5px;
+}
+
+.selector-hint {
+  color: #999;
+  font-size: 1.5em;
+}
+
+.new-measurement-table > thead > tr > th {
+  white-space: nowrap;
+}
+
+.new-measurement-table > tbody > tr > td {
+  white-space: nowrap;
+}
+
+.new-measurement-input {
+  width: 5em;
+  font-size: 1em;
+  height: 2em;
+  padding: 0.5em;
+}
+
+.new-measurement-range {
+  width: 2.5em;
+  font-size: 1em;
+  height: 2em;
+  padding: 0.5em;
+}
+
+.new-measurement-btn {
+  height: 2em;
+}
+
+.edit-measurement-range {
+  width: 3em;
+}

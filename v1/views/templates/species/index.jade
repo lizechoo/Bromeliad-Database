@@ -1,0 +1,112 @@
+aside.right-side
+  .content-nav-holder
+  .content-table-header
+    div.content-header-left.tag(ng-if="species.dataset")
+      span.description {{ species.dataset.name }}
+    a.content-header-left.button(href="", ng-click="species.showClassification()", 
+    ng-class="{ active: species.isClassification() }")
+      i.fa.fa-bug
+      |  Classification
+    a.content-header-left.button(href="", ng-click="species.showTachet()", 
+    ng-class="{ active: species.isTachet() }")
+      i.fa.fa-asterisk
+      |  Tachet traits
+    a.content-header-left.button(href="", ng-click="species.showTraits()", 
+    ng-class="{ active: species.isTraits() }")
+      i.fa.fa-asterisk
+      |  Traits
+    .pull-right(ng-show="species.selected.length == 0")
+      a.content-header-right.button(href="", ui-sref="species-new")
+        i.fa.fa-bug
+        |   New
+      a.content-header-right.button(href="", ng-click="species.upload()")
+        i.fa.fa-upload
+        |   Upload
+      a.content-header-right.button(href="", ng-click="species.export()")
+        i.fa.fa-cloud-download
+        |   Export
+      a.content-header-right.button(ng-class="{ 'active': species.showDrawer=='search' }", 
+      ng-click="species.toggleDrawer('search')", href="")
+        i.fa.fa-search
+        |   Search 
+        i.fa.fa-circle.active-dot(ng-show="species.controls.search")
+      a.content-header-right.button(ng-class="{ 'active': species.showDrawer=='column' }", 
+      ng-click="species.toggleDrawer('column')", href="")
+        i.fa.fa-columns
+        |   Toggle columns
+    .pull-right(ng-show="species.selected.length != 0")
+      a.content-header-right.selects
+        small.badge(style="background-color: #9b59b6 !important") 
+          |  {{ species.selected.length }} Selected
+      a.content-header-right.button(href="", ng-click="species.export()")
+        i.fa.fa-cloud-download
+        |   Export
+      a.content-header-right.button(href="", ng-click="species.edit()")
+        i.fa.fa-pencil
+        |  Edit
+      a.content-header-right.button(href="", ng-click="species.delete()")
+        i.fa.fa-trash-o
+        |  Delete
+      a.content-header-right.button.collapsible(href="", ng-click="species.selected = []")
+        i.fa.fa-undo
+        |  Deselect all
+  //- Drawers
+  //- ============
+  div(ng-show="species.selected.length == 0")
+    .content-drawer.content-drawer-columns(ng-show="species.showDrawer == 'column'")
+      .btn-group.toggle-button(ng-repeat='column in species.columns', 
+      ng-show="!column.primary",ng-click='column.visible = !column.visible')
+        button.btn.btn-default(ng-class="{ 'btn-sm': species.isTraits() }")
+          div(ng-show='!column.visible')
+            i.fa.fa-check(style="color: transparent")
+          div(ng-show='column.visible')
+            i.fa.fa-check
+        button.btn.btn-default(disabled, ng-class="{ 'btn-sm': species.isTraits() }")
+          | {{ column.title }}
+
+    .content-drawer.content-drawer-columns(ng-show="species.showDrawer == 'search'")
+      div(ng-show="species.controls.search")
+        div.search-drawer-text.triangle
+          | Searching
+        div.search-drawer-text.blue
+          | {{ species.controls.search }}
+      .input-group.search
+        span.input-group-addon
+          i.fa.fa-search
+        form(ng-submit="species.search(species.searchTerm)")
+          input.form-control(type='text', ng-model="species.searchTerm", placeholder='Search species..')
+        span.input-group-btn
+          button.btn.btn-default(ng-click="species.clearSearch()")
+            i.fa.fa-ban
+            |  Clear search
+        
+  //- Table
+  //- =============
+  .content-table-container
+    .content-table-overlay(ng-show="species.controls.loading")
+    .content-table-main(resize, ng-style="resizeWithOffset()")
+      div(species-table-d='', class='no-padding', params='species.tableParams', 
+      columns='species.columns', selected="species.selected",
+      count="species.controls.tableInfo.count")
+
+  .content-table-footer
+    .content-footer-button
+      | {{ species.getShowing() }}
+    a.content-footer-button(ng-repeat='page in species.tableParams.pagesArray', ng-switch='page.type', ng-click='species.tableParams.page(page.number)', href='', ng-class="{'active': !page.active && page.type!='more'}")
+      div(ng-switch-when='prev') &laquo;
+      div(ng-switch-when='first')
+        span(ng-bind='page.number')
+      div(ng-switch-when='page')
+        span(ng-bind='page.number')
+      div(ng-switch-when='more') &#8230;
+      div(ng-switch-when='last')
+        span(ng-bind='page.number')
+      div(ng-switch-when='next') &raquo;
+    
+    .pull-right
+      form(ng-submit="species.setCount(species.count)")
+        .content-footer-text 
+          | Show
+        input.content-footer-count.form-control(type="text", ng-model="species.count", placeholder="{{species.controls.tableInfo.count}}")
+        .content-footer-button
+          | per page

@@ -1,0 +1,28 @@
+#login-box.form-box
+  .header {{ !forgot? 'Sign in':'Password Recovery' }}
+  form(method='post', ng-submit='submit(username, password)' ng-show='!forgot')
+    .body.bg-gray
+      .alert.alert-danger.alert-dismissable(ng-show='error')
+        i.fa.fa-warning
+        b Alert!
+        |  {{ error }}
+      .form-group
+        input.form-control(type='text', name='userid', placeholder='User ID', ng-model='username')
+      .form-group
+        input.form-control(type='password', name='password', placeholder='Password', ng-model='password')
+      .form-group
+        input(type='checkbox', name='remember_me')
+        |  Remember me
+    .footer
+      button.btn.bg-olive.btn-block(type='submit', ng-disabled='loggingIn || !username || !password || userid == "" || password == ""') Sign me in
+      p
+        a(href='#', ng-click="forgot = true") I forgot my password
+
+  form(method='post' ng-submit='forget(email)' ng-show='forgot')
+    .body.bg-gray
+      .form-group
+        input.form-control(type='text', name='email', placeholder='Enter email to recover your password', ng-model='email')
+    .footer
+      button.btn.bg-blue.btn-block(type="submit" ng-disabled='!email || email.length == 0', ng-click="recover") Recover
+      p
+        a(href='#', ng-click="forgot = false") Back

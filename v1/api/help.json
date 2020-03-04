@@ -1,0 +1,68 @@
+{
+  "Dataset": {
+    "+New": "A dataset is defined as a unique site and year combination. To add a new dataset, click the +New button. <br>Um conjunto de dados (dataset) é definido pela combinação única entre local (site) e ano. Para adicionar um novo conjunto de dados, clicar no botão +New no canto superior direito. ",
+    "Species": "Click to see or add species in this dataset. Clique para ver ou adicionar espécies no \"dataset\"",
+    "Bromeliads ": "Click to see or add bromeliads  in this dataset. Clique para ver ou adicionar bromélias no \"dataset\".",
+    "Visits": "Click to see or add visits in this dataset. Clique para ver ou adicionar visitas no \"dataset\".",
+    "View this dataset": "Click to see/edit/add dataset info, or species and abundance matrices. Clique para ver informações do \"dataset\", adicionar espécies e matriz de abundância. ",
+    "Latitude": "e.g. -29.433",
+    "Longitude": "e.g. -60.467"
+  },
+  "View this dataset": {
+    "Overview": "Summary of dataset information. Informações do \"dataset\"."
+  },
+  "Overview": {
+    "+Add or Edit Visits": "Visit = unique habitat within a dataset. Visita = Habitat único dentro de um \"dataset\""
+  },
+  "Visit": {
+    "Habitat": "e.g. Cloud forest, restinga (other conditions like ant presence or bromeliad species will be entered later for each bromeliad)",
+    "Min. Rainfall": "leave blank: BWG administrators to enter from WorldClim",
+    "Max. Rainfall": "leave blank: BWG administrators to enter from WorldClim",
+    "Min. Temperature": "leave blank: BWG administrators to enter from WorldClim",
+    "Max. Temperature": "leave blank: BWG administrators to enter from WorldClim",
+    "Latitude": "e.g. -29.433",
+    "Longitude": "e.g. -60.467"
+  },
+  "Species": {
+    "+Add species": "To add species to this dataset. Para adicionar espécies no \"dataset\"."
+  },
+  "Add Measurements": {
+    "Species Selector": "Search for species you want to add and then clich on \"Add to Dataset\". Busque as espécies que deseja adicionar e depois clique em “Add to Dataset”."
+  },
+  "New Measurements": {
+    "Category": "Combination of life stage and size, e.g., larva_2mm. Combinação de estágio de vida e tamanho ex: larva_2mm",
+    "Biomass": "Dry mass g or mg (select correct unit!). Massa seca g ou mg."
+  },
+  "Abundance Matrix": {
+    "Edit Matrix": "To manually insert species abundances. Para inserir a abundância das espécies."
+  },
+  "Edit Matrix": {
+    "Edit as CSV": "To upload abundance matrix as csv. Para fazer o upload da matriz como csv."
+  },
+  "Bromeliads": {
+    "+New": "To add a new bromeliad in the selected dataset. Para adicionar novas bromélias no dataset selecionado."
+  },
+  "New Bromeliad": {
+    "Dataset - Visit Habitat (Date)": "The “Dataset-Visit habitat (Date)” field should autofill. O campo “Dataset-Visit Habitat (Date)” será preenchido automaticamente.",
+    "Collection date": "The actual bromeliad, not the whole field season.  Data da coleta da Bromélia em questão, não a data de início da visita. ",
+    "Original ID": "This should exactly match your field notes, do not change bromeliad identifiers. Deve ser usado a identificação da bromélia feita em campo, não altere as identificações.",
+    "Bromeliad species": "Please ensure this is spelt correctly. If genus only identification, use this form: genus sp.”  Assegure-se que o nome da espécie esteja escrito corretamente. Se a única identificação for o gênero, usar o formato “gênero sp.” ",
+    "Water held actual (ml)": "Volume of water present in the bromeliad (ml). Volume de água presente na bromélia (ml)",
+    "Water held max (ml)": "Maxium water volume bromeliad can held (ml). Volume máximo de água que a bromélia pode reter (ml)  ",
+    "Height (cm above ground)": "Height above ground: enter 0 if the bromeliad was growing on the ground, a positive number if epiphytic bromeliad, leave as NA if data missing. Altura acima do solo: 0 se a bromélia estiver crescendo no chão; número positivo se for uma bromélia epífita; NA se não tiver esse dado.",
+    "Diameter (cm)": "Horizontal distance from one side of the plant to the other (cm). Distância horizontal de uma extremidade a outra da planta (cm).",
+    "Extended Diameter (cm)": "This is the horizontal distance from one side of the plant to the other, with the leaves pulled by hand to their maximal extent. Distância horizontal de uma extremidade a outra da planta, com as folhas extendidas manualmente a sua máxima extensão.",
+    "Leaf width (cm)": "Width across the middle bromeliad leaf, taken at the leaf base. Largura da folha do meio da bromélia, medida na base da folha. ",
+    "# leaves": "The number of water-holding leaves. Número de folhas capazes de reter água.",
+    "Longest leaf (cm)": "The length of the longest bromeliad leaf, from its base to its tip. Comprimento da maior folha da bromélia, da base até a ponta.",
+    "Attribute": "Extra information, for example: ant nest, spider presence. Informações extra, por exemplo: ninho de formiga, presença de aranhas.",
+    "Value": "In general: present or absent. Em geral: presente ou ausente.",
+    "Add atribute": "Add more extra information. Adicionar mais informações extra.",
+    "Edit Detritus Dry Mass": "To insert detritus information. Para inserir informação sobre detrito."
+  },
+  "Detritus Dry Mass": {
+    "Min": "Size of particulate, the lower bound of the sieve. Tamanho do particulado, limite inferior da peneira.",
+    "Max": "Size of particulate, the upper bound of the sieve. Tamanho do particulado, limite superior da peneira. ",
+    "Dry mass g": "Dry mass of detritus in g. Massa seca de detrito em g."
+  }
+}

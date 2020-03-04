@@ -1,0 +1,89 @@
+.modal-header
+  h3.modal-title
+    i.fa.fa-map-marker
+    |  {{ visit.edit? 'Edit' : 'New' }} Visit
+.modal-body
+  .form-group
+    .row
+      .col-sm-4
+        label Dataset 
+          span.th-unit required
+        select.form-control(ng-model='visit.data.dataset_id', required='true', 
+        ng-options='dataset.dataset_id as dataset.name for dataset in visit.datasets')
+      .col-sm-8
+        label Habitat 
+          span.th-unit required
+        input.form-control(type='text', ng-model='visit.data.habitat')
+    .row
+      .col-sm-6
+        label Rainfall 
+          span.th-unit mm
+          p.no-margin.th-unit total, summed over days in one month
+        .row
+          .col-xs-6
+            .input-group
+              span.input-group-addon min
+              input.form-control(type='text', ng-model='visit.data.min_rainfall', placeholder='NA')
+          .col-xs-6
+            .input-group
+              span.input-group-addon max
+              input.form-control(type='text', ng-model='visit.data.max_rainfall', placeholder='NA')
+      .col-sm-6
+        label Temperature 
+          span.th-unit °C
+          p.no-margin.th-unit daily mean, averaged over days in one month
+        .row
+          .col-xs-6
+            .input-group
+              span.input-group-addon min
+              input.form-control(type='text', ng-model='visit.data.min_temperature', placeholder='NA')
+          .col-xs-6
+            .input-group
+              span.input-group-addon max
+              input.form-control(type='text', ng-model='visit.data.max_temperature', placeholder='NA')
+    .row
+      .col-sm-6
+        label Elevation 
+          span.th-unit m
+        .row
+          .col-xs-6
+            .input-group
+              span.input-group-addon min
+              input.form-control(type='text', ng-model='visit.data.min_elevation', placeholder='NA')
+          .col-xs-6
+            .input-group
+              span.input-group-addon max
+              input.form-control(type='text', ng-model='visit.data.max_elevation', placeholder='NA')
+      .col-sm-6
+        label Geolocation 
+          span.th-unit DD
+        .row
+          .col-xs-6
+            .input-group
+              span.input-group-addon lat
+              input.form-control(type='text', ng-model='visit.data.latitude', placeholder='NA')
+          .col-xs-6
+            .input-group
+              span.input-group-addon long
+              input.form-control(type='text', ng-model='visit.data.longitude', placeholder='NA')
+    .row
+      .col-sm-6
+        label Collection Method
+        .form-group
+          select.form-control(ng-model='visit.data.collection_method', required='true', 
+          ng-options='method for method in visit.collectionMethods',
+          ng-init='visit.data.collection_method = visit.collectionMethods[0]')
+      .col-sm-6
+        label Date visit started 
+          span.th-unit YYYY-MM-DD
+        input.form-control(type='text', ng-model='visit.data.date', placeholder='NA')
+    .row
+      .col-sm-12
+        label Meta data 
+          span.th-unit optional
+        .row
+          .col-sm-12
+            textarea.form-control(rows="4", cols="50", ng-model="visit.data.meta")
+.modal-footer
+  button.btn.btn-default(ng-click='visit.cancel()') Cancel
+  button.btn.btn-primary(ng-click='visit.submit()') {{ edit? 'Update' : 'Submit' }}

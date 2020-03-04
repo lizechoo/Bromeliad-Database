@@ -1,0 +1,14 @@
+.box.box-default.box-solid(style="margin-top: 150px")
+  .box-header
+    h3.box-title
+      i.fa.fa-bug
+      |  Biomass
+  .box-body
+    p.text-mute
+      | Enter a biomass for this value (in mg)
+    input.form-control(type="text", ng-model="biomass")
+  .box-footer.no-padding
+    a.confirm-left-button.confirm-buttons(ng-click="closeThisDialog()", href="")
+      span Cancel
+    a.confirm-right-button.confirm-buttons(ng-click="submit(biomass)", href="")
+      span Confirm

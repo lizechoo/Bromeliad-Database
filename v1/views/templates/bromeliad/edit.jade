@@ -1,0 +1,133 @@
+.modal-header
+  h3.modal-title
+    i.fa.fa-tree
+    |  {{ bromeliad.edit? 'Edit' : 'New' }} Bromeliad
+
+.details-section
+  span Details
+
+.modal-body.form-group(style="margin-bottom: 0")
+  .row(style="margin-bottom: 20px")
+    .col-sm-7
+      label
+        a(href="", uib-popover="{{bromeliad.help('habitat')}}")
+          i.fa.fa-question-circle
+        |  Dataset - Visit Habitat (Date)
+        span.th-unit  required
+      select.form-control(ng-model='bromeliad.data.visit_id', required='true',
+      ng-options='visit.visit_id as visit.dataset_name + " - " + \
+      visit.habitat+(visit.date?" ("+visit.date+")":"") for visit in bromeliad.visits')
+    .col-sm-5
+      label
+        a(href="", uib-popover="{{bromeliad.help('date')}}")
+          i.fa.fa-question-circle
+        |  Collection date
+        span.th-unit  YYYY-MM-DD
+      input.form-control(type='text', ng-model='bromeliad.data.collection_date', placeholder="NA")
+  .row
+    .col-sm-6
+      label
+        a(href="", uib-popover="{{bromeliad.help('original_id')}}")
+          i.fa.fa-question-circle
+        |  Original ID
+        span.th-unit  required
+      input.form-control(type='text', ng-model='bromeliad.data.original_id')
+    .col-sm-6
+      label
+        a(href="", uib-popover="{{bromeliad.help('species')}}")
+          i.fa.fa-question-circle
+        |  Bromeliad Species
+      input.form-control(type='text', ng-model='bromeliad.data.species', placeholder="NA")
+  .row
+    .col-sm-6
+      label
+        a(href="", uib-popover="{{bromeliad.help('water')}}")
+          i.fa.fa-question-circle
+        |  Water held
+        span.th-unit  ml
+      .row
+        .col-xs-6
+          .input-group
+            span.input-group-addon actual
+            input.form-control(type='text', ng-model='bromeliad.data.actual_water', placeholder="NA")
+        .col-xs-6
+          .input-group
+            span.input-group-addon max
+            input.form-control(type='text', ng-model='bromeliad.data.max_water', placeholder="NA")
+  .row
+    .col-sm-4
+      label
+        a(href="", uib-popover="{{bromeliad.help('height')}}", tooltip-append-to-body="true")
+          i.fa.fa-question-circle
+        |  Height
+        span.th-unit  cm above ground
+      input.form-control(type='text', ng-model='bromeliad.data.height', placeholder="NA")
+    .col-sm-4
+      label
+        a(href="", uib-popover="{{bromeliad.help('diameter')}}")
+          i.fa.fa-question-circle
+        |  Diameter
+        span.th-unit  cm
+      input.form-control(type='text', ng-model='bromeliad.data.diameter', placeholder="NA")
+    .col-sm-4
+      label
+        a(href="", uib-popover="{{bromeliad.help('extended_diameter')}}")
+          i.fa.fa-question-circle
+        |  Extended Diameter
+        span.th-unit  cm
+      input.form-control(type='text', ng-model='bromeliad.data.extended_diameter', placeholder="NA")
+  .row
+    .col-sm-4
+      label
+        a(href="", uib-popover="{{bromeliad.help('leaf_width')}}")
+          i.fa.fa-question-circle
+        |  Leaf width
+        span.th-unit  cm
+      input.form-control(type='text', ng-model='bromeliad.data.leaf_width', placeholder="NA")
+    .col-sm-4
+      label
+        a(href="", uib-popover="{{bromeliad.help('num_leaf')}}")
+          i.fa.fa-question-circle
+        |  # leaves
+      input.form-control(type='text', ng-model='bromeliad.data.num_leaf', placeholder="NA")
+    .col-sm-4
+      label
+        a(href="", uib-popover="{{bromeliad.help('longest_leaf')}}")
+          i.fa.fa-question-circle
+        |  Longest leaf
+        span.th-unit  cm
+      input.form-control(type='text', ng-model='bromeliad.data.longest_leaf', placeholder="NA")
+
+.details-section(style="margin-bottom: 10px;")
+  span Attributes
+
+.modal-body.bromeliad.attribute
+  table.table.table-striped.table-bordered
+    thead
+      tr
+        th
+          a(href="", uib-popover="{{bromeliad.help('attribute')}}" popover-append-to-body="true")
+            i.fa.fa-question-circle
+          |  Attribute
+        td(ng-repeat="attribute in bromeliad.attributes")
+          input(type="text", ng-model="attribute.type", placeholder="Type")
+    tbody
+      tr
+        th
+          a(href="", uib-popover="{{bromeliad.help('value')}}" popover-append-to-body="true")
+            i.fa.fa-question-circle
+          |  Value
+        td(ng-repeat="attribute in bromeliad.attributes")
+          input(type="text", ng-model="attribute.value", placeholder="Value")
+          a.fa.fa-times.delete(href="", ng-click="bromeliad.removeAttribute($index)")
+
+.modal-footer
+  button.btn.btn-default.pull-left(ng-click="bromeliad.addAttribute()") Add attribute
+  a.pull-left(style="margin-right: 2px", href="", uib-popover="{{bromeliad.help('add_attribute')}}", popover-append-to-body="true")
+    i.fa.fa-question-circle
+  button.btn.btn-default.pull-left(ng-click="bromeliad.showDetritus()") Edit Detritus Dry Mass
+    span.badge.bg-grey  {{bromeliad.data.detritus?bromeliad.data.detritus.length:0}}
+  a.pull-left(style="margin-right: 2px", href="", uib-popover="{{bromeliad.help('detritus_dry_mass')}}", popover-append-to-body="true")
+    i.fa.fa-question-circle
+  button.btn.btn-default(ng-click='bromeliad.cancel()') Cancel
+  button.btn.btn-primary(ng-click='bromeliad.submit()') {{ edit? 'Update' : 'Submit' }}

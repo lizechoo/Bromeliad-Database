@@ -1,0 +1,104 @@
+ul.timeline
+  li(ng-repeat="log in history")
+    i.fa(ng-class="logGlyphClass(log)")
+    .timeline-item
+      span.time
+        i.fa.fa-clock-o
+        |  {{ parseTime(log.timestamp) }}
+      h5.timeline-header.no-border
+        a(href="", ng-click="") 
+          | {{ log.username }} 
+        | {{ parseAction(log.action) }} 
+        
+        span(ng-if="log.type == 'species'")
+          span(ng-if="log.species.length > 1")
+            b {{ log.species.length }} 
+            | species 
+          span(ng-if="log.species.length == 1")
+            | the species 
+            a(ng-if="log.species[0].species_id != null", ng-click="viewSpecies(log.species[0].species_id)", href="")
+              i.fa.fa-bug
+                |  {{ log.species[0].bwg_name }}
+            a(ng-if="log.species[0].species_id == null", uib-tooltip="This species was removed", href="#")
+              i.fa.fa-bug
+                |  {{ log.species[0].bwg_name }}
+          span(ng-if="log.file_id")
+            | via CSV upload 
+        
+        span(ng-if="log.type == 'datasets'")
+          span(ng-if="log.datasets.length > 1")
+            b {{ log.datasets.length }}
+            | datasets
+          span(ng-if="log.datasets.length == 1")
+            | the dataset 
+            a(ng-if="log.datasets[0].dataset_id != null", href=""
+            ui-sref="dataset-view.overview({dataset_id: log.datasets[0].dataset_id})")
+              i.fa.fa-list-alt
+                |  {{ log.datasets[0].dataset_name }}
+            a(ng-if="log.datasets[0].dataset_id == null", uib-tooltip="This dataset was removed", href="#")
+              i.fa.fa-list-alt
+                |  {{ log.datasets[0].dataset_name }}
+        
+        span(ng-if="log.type == 'visits'")
+          span(ng-if="log.visits.length > 1")
+            b {{ log.visits.length }}
+            | visits
+          span(ng-if="log.visits.length == 1")
+            | the visit 
+            a(ng-if="log.visits[0].visit_id != null", ng-click="viewVisit(log.visits[0].visit_id)", href="")
+              i.fa.fa-map-marker
+                |  {{ log.visits[0].habitat }}  
+            a(ng-if="log.visits[0].visit_id == null", uib-tooltip="This visit was removed", href="#")
+              i.fa.fa-map-marker
+                |  {{ log.visits[0].habitat }}  
+        
+        span(ng-if="log.type == 'bromeliads'")
+          span(ng-if="log.bromeliads.length > 1")
+            b {{ log.bromeliads.length }}
+            | {{ log.bromeliads.length }}
+          span(ng-if="log.bromeliads.length == 1")
+            | the bromeliad 
+            a(ng-if="log.bromeliads[0].bromeliad_id != null", ng-click="viewBromeliad(log.bromeliads[0].bromeliad_id)", href="")
+              i.fa.fa-tree
+                |  {{ log.bromeliads[0].original_id }}  
+            a(ng-if="log.bromeliads[0].bromeliad_id == null", uib-tooltip="This bromeliad was removed", href="#")
+              i.fa.fa-tree
+                |  {{ log.bromeliads[0].original_id }}  
+                
+        span(ng-if="log.type == 'measurements'")
+          | measurements 
+          
+        span(ng-if="log.type == 'matrix'")
+          | matrix 
+
+        span(ng-if="(datasetinfo = getDatasetInfo(log)) && datasetinfo.dataset_name")
+          |  to the dataset 
+          a(href="", ui-sref="dataset-view.overview({dataset_id: datasetinfo.dataset_id})" ng-if="datasetinfo.dataset_id")
+            i.fa.fa-list-alt  
+            |  {{ datasetinfo.dataset_name }}
+          span(ng-if="datasetinfo.dataset_id == null")
+            i.fa.fa-list-alt
+            | {{ datasetinfo.dataset_name }}
+        span(ng-if="(datasetinfo = getDatasetInfo(log)) && datasetinfo.num_datasets")
+          | to {{ datasetinfo.num_datasets }} Datasets
+      .timeline-body.chat(style="padding-bottom: 0px !important")
+        .item(ng-repeat="comment in log.comments")
+          img(ng-src="{{getAvatarSrc(comment.avatar)}}", 
+          ng-if="getAvatarSrc(comment.avatar)").online.img-circle.avatar-img
+          img(ng-if="!getAvatarSrc(comment.avatar)").online.img-circle.avatar-img
+          p.message
+            a(href="#").name
+              | {{ comment.username }}
+              small(style="margin-left: 10px").text-muted
+                i.fa.fa-clock-o 
+                |  {{ parseTime(comment.timestamp) }}
+            | {{ comment.comment }}
+      .timeline-footer(ng-if="comments")
+        a(href="#", ng-click="commentBox[log.log_id] = 1", ng-show="!commentBox[log.log_id]") Leave a comment
+        form.comment-form(ng-show="commentBox[log.log_id]")
+          textarea.form-control(placeholder="Write a comment..", ng-model="commentData[log.log_id]")
+          .comment-box-tools
+            button.btn.btn-default.btn-xs(ng-click="(commentBox[log.log_id] = false) || (commentData[log.log_id] = '')") 
+              | Cancel 
+            button.btn.btn-default.btn-xs(ng-click="submitComment(log.log_id, commentData[log.log_id])") Submit
+          

@@ -1,0 +1,142 @@
+.modal-header
+  h3.modal-title
+    i.fa.fa-bug
+    |  {{ species.data.bwg_name }}
+    button.close(ng-click="species.dismiss()") &times; Close
+
+.modal-body.no-padding
+  .details-section
+    span Classification
+
+  .details-content.species-view-classification
+    .row
+      .col-xs-3
+        div
+          b Domain
+        div {{ species.data.domain }}
+      .col-xs-3
+        div
+          b Kingdom
+        div {{ species.data.kingdom }}
+      .col-xs-3
+        div
+          b Phylum
+        div {{ species.data.phylum }}
+      .col-xs-3
+        div
+          b Sub Phylum
+        div {{ species.data.subphylum }}
+    .row
+      .col-xs-3
+        div
+          b Class
+        div {{ species.data.class }}
+      .col-xs-3
+        div
+          b Sub Class
+        div {{ species.data.subclass }}
+      .col-xs-3
+        div
+          b Order
+        div {{ species.data.ord }}
+      .col-xs-3
+        div
+          b Sub Order
+        div {{ species.data.subord }}
+    .row
+      .col-xs-3
+        div
+          b Family
+        div {{ species.data.family }}
+      .col-xs-3
+        div
+          b Sub Family
+        div {{ species.data.subfamily }}
+      .col-xs-3
+        div
+          b Tribe
+        div {{ species.data.tribe }}
+      .col-xs-3
+        div
+          b Genus
+        div {{ species.data.genus }}
+    .row
+      .col-xs-3
+        div
+          b Species
+        div {{ species.data.species }}
+      .col-xs-3
+        div
+          b Sub Species
+        div {{ species.data.subspecies }}
+      .col-xs-3
+        div
+          b Functional Group
+        div {{ species.data.functional_group }}
+      .col-xs-3
+        div
+          b Realm
+        div {{ species.data.realm }}
+    .row
+      .col-xs-3
+        div
+          b Micro/Macro
+        div {{ species.data.micro_macro }}
+      .col-xs-3
+        div
+          b Barcode
+        div {{ species.data.barcode }}
+
+  .details-section
+    span Datasets
+
+  .details-content.species-view
+    div(ng-if="species.datasets && species.datasets.length > 0")
+      a.species-view-name(ng-repeat="dataset in species.datasets", href="", ui-sref="dataset-view.overview({dataset_id: dataset.dataset_id})") {{ dataset.name }}
+    div(ng-if="!species.datasets || species.datasets.length == 0")
+      span This species has not been entered in any datasets yet.
+
+  .details-section
+    span Alternate names
+
+  .details-content.species-view
+    div(ng-if="species.data.names && species.data.names.length > 0")
+      span.species-view-name(ng-repeat="name in species.data.names") {{name}}
+    div(ng-if="!species.data.names || species.data.names.length == 0")
+      span No alternate names for this species yet.
+
+  .details-section
+    span Traits
+
+  .details-content.no-padding.no-margin.traits(ng-if="species.data.traits")
+    table.table.table-striped.table-bordered.no-margin
+      thead
+        tr
+          th(ng-repeat="(k, v) in species.data.traits", style="min-width: 30px! important") {{k}}
+      tbody
+        tr
+          td(ng-repeat="(k, v) in species.data.traits") {{v}}
+
+  .details-content.species-view(ng-if="!species.data.traits")
+      span No traits for this species yet.
+
+  .details-section
+    span Tachet
+
+  .details-content.no-padding.no-margin.traits(ng-if="species.data.tachet")
+    table.table.table-striped.table-bordered.no-margin
+      thead
+        tr
+          th(ng-repeat="(k, v) in species.data.tachet"
+             style="min-width: 30px! important"
+             uib-tooltip="{{species.tachets[k]}}" tooltip-append-to-body="true")
+            | {{k}}
+      tbody
+        tr
+          td(ng-repeat="(k, v) in species.data.tachet") {{v || 'NA'}}
+
+
+  .details-content.species-view(ng-if="!species.data.tachet")
+      span No traits for this species yet.
+
+.modal-footer

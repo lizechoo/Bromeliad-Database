@@ -1,0 +1,41 @@
+.box.box-primary.box-solid(style="margin-top: 150px")
+  .box-header
+    h3.box-title
+      i.fa.fa-tree
+      span  Detritus Dry Mass
+  .box-body.no-padding
+    table.table.table-condensed.table-bordered
+      thead
+        tr
+          th(colspan="2") Sieve size
+            span.th-unit
+              |  μm
+          th(rowspan="2")  Dry mass
+            a(href="", uib-popover="{{bromeliad.help('detritus_mass')}}")
+              i.fa.fa-question-circle
+            span.th-unit
+              |  g
+        tr
+          th
+            a(href="", uib-popover="{{bromeliad.help('detritus_min')}}")
+              i.fa.fa-question-circle
+            |  Min
+          th
+            a(href="", uib-popover="{{bromeliad.help('detritus_max')}}")
+              i.fa.fa-question-circle
+            |  Max
+      tbody
+        tr(ng-repeat="detritus in bromeliad.detritus track by $index")
+          td
+            input(type="text", ng-model="detritus.min").detritus-input
+          td
+            input(type="text", ng-model="detritus.max").detritus-input
+          td
+            input(type="text", ng-model="detritus.mass").detritus-input
+            a.fa.fa-times.delete(href="", ng-click="bromeliad.removeRow($index)")
+
+  .box-footer.no-padding
+    a.confirm-left-button.confirm-buttons(ng-click="bromeliad.addRow()", href="")
+      span Add row
+    a.confirm-right-button.confirm-buttons(ng-click="bromeliad.done()", href="")
+      span Done

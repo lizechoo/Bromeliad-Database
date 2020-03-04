@@ -1,0 +1,12 @@
+{
+  "datasets": [
+    {
+      "name": "YearLessThan1900",
+      "country": "Canada",
+      "location": "Vancouver",
+      "lat": 14.1678,
+      "lng": 172.2123,
+      "year": 1899
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+.box.box-success.box-solid(style="margin-top: 150px")
+  .box-header
+    h3.box-title
+      i.fa.fa-check
+      |  Sucess
+  .box-body
+    p.text-mute
+      center(ng-bind-html="message")
+  .box-footer.no-padding
+    a.ok-button.confirm-buttons(ng-click="confirm(1)", href="")
+      span OK

@@ -1,0 +1,10 @@
+.box.box-primary.box-solid(style="margin-top: 150px")
+  .box-header
+    h3.box-title
+      i.fa.fa-upload 
+      span  Upload Image
+  .box-body
+    uploader(max-size="100000", on-upload="admin.onUpload(file)")
+  .box-footer.no-padding
+    a.ok-button.confirm-buttons(ng-click="closeThisDialog()", href="")
+      span Cancel

@@ -1,0 +1,68 @@
+.box.box-primary.box-solid(style="margin-top: 100px")
+  .box-header
+    h3.box-title
+      div(ng-if="!user.edit")
+        i.fa.fa-user-plus
+        |   New User
+      div(ng-if="user.edit")
+        i.fa.fa-user
+        |   Edit User
+  .box-body
+    .row(style="margin-bottom: 5px")
+      .col-md-8
+        label Name 
+          span.th-unit required
+        .input-group
+          span.input-group-addon
+            i.fa.fa-user
+          input.form-control(type='text', ng-model="user.data.name")
+          
+    .row(style="margin-bottom: 5px")
+      .col-md-8
+        label Username 
+          span.th-unit required
+        .input-group
+          span.input-group-addon
+            i.fa.fa-at
+          input.form-control(type='text', ng-disabled="user.edit", ng-model="user.data.username")
+    .row(style="margin-bottom: 5px")
+      .col-md-8
+        label Email 
+          span.th-unit required
+        .input-group
+          span.input-group-addon
+            i.fa.fa-envelope
+          input.form-control(type='text', ng-model="user.data.email")
+    .row(style="margin-bottom: 5px", ng-if="user.edit")
+      .col-md-12
+        .checkbox
+          label
+            input(type="checkbox", ng-model="user.setPassword")
+            | Change password
+    .row(style="margin-bottom: 5px", ng-show="!user.edit || user.setPassword")
+      .col-md-6
+        label Password 
+          span.th-unit required
+        .input-group
+          span.input-group-addon
+            i.fa.fa-key
+          input.form-control(type="password", ng-model="user.data.password")
+      .col-md-6
+        label Confirm 
+          span.th-unit required
+        .input-group
+          span.input-group-addon
+            i.fa.fa-key
+          input.form-control(type="password", ng-model="user.data.confirm")
+    .row(style="margin-bottom: 5px")
+      .col-md-12
+        .checkbox
+          label
+            input(type="checkbox", ng-model="user.data.admin")
+            | Admin privileges
+  .box-footer.no-padding
+    a.confirm-left-button.confirm-buttons(ng-click="closeThisDialog()", href="")
+      span Cancel
+    a.confirm-right-button.confirm-buttons(ng-click="user.submit(user.data)", href="")
+      span(ng-if="!user.edit") Create
+      span(ng-if="user.edit") Update

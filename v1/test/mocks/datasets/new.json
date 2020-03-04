@@ -1,0 +1,20 @@
+{
+  "datasets": [
+    {
+      "name": "Vancouver_2015",
+      "country": "Canada",
+      "location": "Vancouver",
+      "year": 2015,
+      "lat": 14.1678,
+      "lng": 172.2123
+    },
+    {
+      "name": "Toronto_2008",
+      "country": "Canada",
+      "location": "Toronto",
+      "year": 2008,
+      "lat": -70.22222,
+      "lng": -142.1231
+    }
+  ]
+}

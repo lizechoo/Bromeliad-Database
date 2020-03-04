@@ -1,0 +1,85 @@
+.uploader-input {
+  visibility: hidden;
+  display: none !important;
+}
+
+.uploader {
+  height: 150px;
+  border-width: 2px;
+  color: #ccc;
+  border-style: dashed;
+  border-color: #ccc;
+  line-height: 150px;
+  text-align: center
+}
+
+.uploader-hover, .uploader:hover {
+  cursor: pointer;
+  color: #777;
+  border-color: #777;
+}
+
+.upload-status {
+  padding: 3px 10px 3px 10px;
+  font-size: 1.1em;
+}
+
+.upload-status.complete {
+  color: #333;
+}
+
+.upload-status.complete > i {
+  color: #27ae60;
+}
+
+.upload-status.current {
+  color: #333;
+}
+
+.upload-status.current > span {
+  font-weight: bold;
+}
+
+.upload-status.current > i {
+  color: #aaa;
+}
+
+.upload-status.pending {
+  color: #ccc;
+}
+
+.upload-status.pending > i {
+  color: transparent;
+}
+
+.upload-status > i {
+  margin-right: 7px;
+}
+
+.upload-progress {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.upload-progress-bar {
+  margin: 10px;
+}
+
+.upload-error {
+  display: inline;
+  color: #777;
+  margin: 0 10px 0 10px;
+}
+
+.upload-error > i {
+  display: inline;
+  margin-right: 5px;
+}
+
+.upload-error > span {
+  display: inline;
+}
+
+.font-red {
+  color: #c0392b !important;
+}

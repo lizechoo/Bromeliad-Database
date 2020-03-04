@@ -1,0 +1,26 @@
+.export-title {
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #777;
+}
+
+.export-option {
+  margin: 0 0 10px 0;
+  color: #777;
+}
+
+.export-option .option > i {
+  width: 20px;
+}
+
+.export-option .option > span {
+  font-weight: bold;
+}
+
+.export-option .value {
+  float: right !important;
+}
+
+.export-option .value > a > i {
+  margin-left: 5px;
+}

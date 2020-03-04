@@ -1,0 +1,126 @@
+aside.right-side
+  .content-nav-holder
+  .content-table
+    .content-table-header
+      a.content-header-left.button(href="", ng-click="species.back()")
+        i.fa.fa-chevron-left
+        |  Back
+      div.content-header-left
+        i.fa.fa-bug
+        |  {{ species.edit?'Edit':'New' }} Species
+      .pull-right
+        a.content-header-right.button-success(href="", ng-click="species.submit()")
+          i.fa.fa-save
+          |  Save
+        a.content-header-right.button(href="", ng-click="species.reset()")
+          i.fa.fa-undo
+          |  Reset
+  .details-hero.species
+    .details-hero-icon
+      i.fa.fa-bug
+    .details-hero-name(ng-mouseover="hover.bwg_name = true", ng-mouseleave="hover.bwg_name = false")
+      .description BWG code
+        span(ng-show="species.isEdited('bwg_name')")  (edited)
+      div(style="width: 150px;", ng-show="species.edit && !species.editing.bwg_name")
+        .value {{ species.data.bwg_name.value }}
+        a.edit.fa.fa-pencil(ng-show="hover.bwg_name", ng-click="species.editing.bwg_name = true", href="")
+      .details-hero-edit(ng-show="species.editing.bwg_name || !species.edit")
+        input(type="text", ng-model="species.data.bwg_name.value", 
+        ng-keyup="species.doneEdit('bwg_name', $event)",
+        focus-me="species.editing.bwg_name || species.data.bwg_name.error",
+        ng-blur="species.checkBWGname(species.data.bwg_name.value)")
+        a.edit.fa.fa-undo(href="", ng-click="species.resetField('bwg_name')", tabindex="-1" style="margin-right: 10px")
+        span.error(ng-show="species.data.bwg_name.error", style="margin-right: 10px")
+          i.fa.fa-exclamation-circle
+          |  {{species.data.bwg_name.error}}
+        a.btn.btn-sm.btn-primary(ng-click="species.showSuggestor(species.data.bwg_name.value)") Suggestion
+          
+  .details-section
+    span Classification
+    
+  .details-content
+    .details-box(ng-repeat="column in species.classificationColumns", 
+    ng-if="column.field != 'bwg_name'"
+    ng-mouseover="hover[column.field] = true", ng-mouseleave="hover[column.field] = false")
+      .description(ng-class="{ edited: species.isEdited(column.field) }") {{ column.label }}
+        span(ng-show="species.isEdited(column.field)")  (edited)
+      div(ng-show="species.edit && !species.editing[column.field]")
+        .value(ng-class="{ 'na': !species.data[column.field].value || species.data[column.field].value == 'NA' }") 
+          | {{ species.data[column.field].value || 'NA' }}
+          a.pull-right.edit.fa.fa-pencil(ng-show="hover[column.field]", 
+          ng-click="species.editing[column.field] = true", href="")
+      .details-box-edit(ng-show="species.editing[column.field] || !species.edit")
+        div(ng-if="!column.options")
+          input.input(type="text", ng-model="species.data[column.field].value",
+          ng-keyup="species.doneEdit(column.field, $event)",
+          focus-me="species.editing[column.field]", placeholder='NA')
+          a.pull-right.done.fa.fa-undo(href="", ng-click="species.resetField(column.field)", tabindex="-1")
+        div(ng-if="column.options")
+          span(uib-dropdown)
+            a.options(href, placeholder="NA", uib-dropdown-toggle) {{ species.data[column.field].value || 'NA' }}
+            ui.uib-dropdown-menu
+              li(ng-repeat="option in column.options")
+                a(href="", ng-click="species.data[column.field].value = option") {{ option }}
+          a.pull-right.done.fa.fa-undo(href="", ng-click="species.resetField(column.field)", tabindex="-1")
+  
+  .details-section
+    span Alternate names 
+    small.badge {{ species.names.length || 0 }}
+    div.pull-right
+      a(href="", ng-click="species.resetNames()")
+        i.fa.fa-undo
+        |  Reset changes
+    
+  .details-content.names
+    tags-input(ng-model='species.names', placeholder='Add an alternate name',
+    min-length='1', replace-spaces-with-dashes='false', add-on-comma='false')
+    
+  .details-section
+    span Traits 
+    small.badge {{ species.traits.length || 0 }}
+    div.pull-right
+      a(href="", ng-click="traitRemoveMode = true", ng-show="!traitRemoveMode")
+        i.fa.fa-minus-square-o
+        |  Remove
+      a(href="", ng-click="traitRemoveMode = false", ng-show="traitRemoveMode")
+        i.fa.fa-check
+        |  Finish remove
+      a(href="", ng-click="species.newTraitEntry()")
+        i.fa.fa-plus-square-o 
+        |  Add new  
+      a(href="", ng-click="species.resetTraits()")
+        i.fa.fa-undo
+        |  Reset changes
+    
+  .details-content.traits
+    .no-data-sm(ng-if="species.traits.length == 0")
+      p
+        i.fa.fa-question
+        span No traits for this species yet
+    table.table.table-striped#edit-traits(ng-show="species.traits.length > 0")
+      thead
+        tr
+          td(ng-repeat="trait in species.traits")
+            input(type="text", ng-model="trait.type", ng-style="species.getTraitWidth(trait.type)",
+            placeholder="Trait")
+      tbody
+        tr
+          td(ng-repeat="trait in species.traits")
+            input(type="text", ng-model="trait.value", ng-style="species.getTraitWidth(trait.value)",
+            placeholder="Value")
+            a.fa.fa-times.delete(href="", ng-show="traitRemoveMode", ng-click="species.removeTrait($index)")
+          td(style="width: 0 !important; padding: 5px !important")#new
+          
+  .details-section
+    span Tachet traits
+    
+  .details-content.traits
+    table.table.table-striped
+      thead
+        tr
+          td(ng-repeat="tachet in species.tachetList")
+            | {{tachet.trait}}
+      tbody
+        tr
+          td(ng-repeat="tachet in species.tachetList")
+            input(type="text", ng-model="species.tachet[tachet.trait]", placeholder="NA", size="2")

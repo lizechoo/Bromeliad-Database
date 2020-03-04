@@ -1,0 +1,54 @@
+.user-card {
+  display: inline-block;
+  width: 330px;
+  height: 100px;
+  margin: 5px 10px 13px 10px;
+  border: 1px solid #e9eaed;
+}
+
+.user-card > i {
+  color: #ccc;
+}
+
+.user-card > i:hover {
+  color: #000;
+  cursor: pointer;
+}
+
+.users-content {
+  margin-left: 0;
+}
+
+.default-avatar {
+  border-right: 1px solid #e9eaed;
+  background-color: #E9EEF0;
+  color: #888;
+  display: inline-block;
+  width: 100px;
+  height: 98px;
+  line-height: 95px;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 3em;
+  font-weight: lighter;
+}
+
+.user-name {
+  display: block;
+  margin-left: 15px;
+  font-weight: bolder;
+  font-size: 1.2em;
+}
+
+.user-username {
+  display: block;
+  margin-left: 15px;
+  font-size: 1.1em;
+}
+
+.card-details {
+  width: 198px;
+  margin-top: 25px;
+  display: inline-block;
+  vertical-align: top;
+}

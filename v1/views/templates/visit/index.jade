@@ -1,0 +1,76 @@
+aside.right-side
+  .content-nav-holder
+  .content-table-header
+    //- Back button
+    a.content-header-left.button(href="", ng-click="visit.back()")
+      i.fa.fa-chevron-left
+      |  Back
+    //- Title: Visits
+    a.content-header-left
+      i.fa.fa-map-marker
+      |   Visits
+    //- Dataset selector
+    span(uib-dropdown, dropdown-append-to-body)
+      a.content-header-left.tag(ng-if="!visit.dataset", href="", uib-dropdown-toggle)
+        span.description All Datasets
+      a.content-header-left.tag(ng-if="visit.dataset", href="", uib-dropdown-toggle)
+        span.description {{ visit.dataset.name }}
+      ui.uib-dropdown-menu
+        li
+          a(ui-sref="visit({dataset_id: null})")
+            i.fa.fa-check(ng-if="!visit.dataset")
+            i.fa.fa-check(ng-if="visit.dataset", style="color: transparent;")
+            | All Datasets
+        li(ng-repeat="d in visit.datasets")
+          a(ui-sref="visit({dataset_id: d.dataset_id})")
+            i.fa.fa-check(ng-if="visit.dataset_id == d.dataset_id")
+            i.fa.fa-check(ng-if="visit.dataset_id != d.dataset_id", style="color: transparent;")
+            | {{d.name}}
+    .pull-right(ng-show="!visit.hasSelected()")
+      a.content-header-right.button(href="", ng-click="visit.new()")
+        i.fa.fa-plus
+        |   New
+    .pull-right(ng-show="visit.hasSelected()")
+      a.content-header-right.selects
+        small.badge(style="background-color: #9b59b6 !important") {{ visit.selected.length }}
+          |  Selected
+      a.content-header-right.button(href="", ng-click="visit.edit()")
+        i.fa.fa-pencil
+        |  Edit
+      a.content-header-right.button(href="", ng-click="visit.delete()")
+        i.fa.fa-trash-o
+        |  Delete
+      a.content-header-right.button.collapsible(href="", ng-click="visit.clearSelected()")
+        i.fa.fa-undo
+        |  Deselect all
+    
+  .content-table-container
+    .content-table-main(resize, ng-style="resizeWithOffset()")
+      .no-data(ng-if="visit.data.length == 0")
+        i.fa.fa-question
+        h4 No visits found{{ visit.dataset_id?' for this dataset':'' }}.
+        h4 
+          a(href="", ng-click="visit.new()") Add 
+          | a new visit?
+      table.table.table-hover.visits-table(ng-if="visit.data.length > 0")
+        thead
+          tr
+            th(ng-repeat="c in visit.field", ng-if="c.visible",
+            ng-click="visit.sorting.sort(c.field)")
+              | {{ c.title }}     
+              span.th-unit {{c.unit}}   
+              i.fa.fa-sort.sort-icon(ng-if="visit.sorting.field != c.field")
+              i.fa.fa-sort-asc.sort-icon(ng-if="visit.sorting.is(c.field, false)")
+              i.fa.fa-sort-desc.sort-icon(ng-if="visit.sorting.is(c.field, true)")
+        tbody
+          tr(ng-repeat="row in visit.data | orderBy:visit.sorting.field:visit.sorting.desc", 
+          ng-class="{ warning: visit.isSelected(row) }",
+          ng-click="visit.toggleSelect(row)")
+            td(ng-repeat="column in visit.field", ng-if="column.visible"
+            ng-class="{ na: !row[column.field] || row[column.field] == 'NA' }") 
+              span(ng-if="column.field != 'dataset_name'") {{ row[column.field] || 'NA' }}
+              a(ng-if="column.field == 'dataset_name'", href="",
+              ui-sref="dataset-view.overview({dataset_id: row.dataset_id})") 
+                | {{ row[column.field] || 'NA' }}
+
+  .content-table-footer

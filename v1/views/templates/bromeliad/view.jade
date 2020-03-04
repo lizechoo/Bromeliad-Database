@@ -1,0 +1,87 @@
+.modal-header
+  h3.modal-title
+    i.fa.fa-tree
+    |  {{ bromeliad.data.original_id }}
+    button.close(ng-click="bromeliad.dismiss()") &times; Close
+    
+.modal-body.no-padding
+  .details-section
+    span Details
+  
+  .details-content.species-view-classification
+    .row
+      .col-xs-3
+        div 
+          b Original ID
+        div {{ bromeliad.data.original_id }}
+      .col-xs-3
+        div 
+          b Species
+        div {{ bromeliad.data.species || 'NA'}}
+      .col-xs-3
+        div 
+          b Actual water
+        div {{ bromeliad.data.actual_water || 'NA'}}
+      .col-xs-3
+        div 
+          b Max water
+        div {{ bromeliad.data.max_water || 'NA' }}
+    .row
+      .col-xs-3
+        div 
+          b Longest leaf
+        div {{ bromeliad.data.longest_leaf || 'NA' }}
+      .col-xs-3
+        div 
+          b Leaf width
+        div {{ bromeliad.data.leaf_width || 'NA' }}
+      .col-xs-3
+        div 
+          b # Leaves
+        div {{ bromeliad.data.num_leaf || 'NA'}}
+      .col-xs-3
+        div 
+          b Height
+        div {{ bromeliad.data.height || 'NA'}}
+    .row
+      .col-xs-3
+        div 
+          b Diameter
+        div {{ bromeliad.data.diameter || 'NA' }}
+      .col-xs-3
+        div 
+          b Extended diameter
+        div {{ bromeliad.data.extended_diameter || 'NA' }}
+      .col-xs-3
+        div 
+          b Collection date
+        div {{ bromeliad.data.collection_date || 'NA' }}
+    
+  .details-section
+    span Attributes
+  
+  .details-content.no-padding.no-margin.traits(ng-if="bromeliad.data.attributes")
+    table.table.table-striped.table-bordered.table-condensed.no-margin
+      thead
+        tr
+          th(ng-repeat="(k, v) in bromeliad.data.attributes", style="min-width: 30px! important") {{k}}
+      tbody
+        tr
+          td(ng-repeat="(k, v) in bromeliad.data.attributes") {{v}}
+          
+  .details-content.species-view(ng-if="!bromeliad.data.attributes")
+      span No attributes for this bromeliad.
+  
+  .details-section
+    span Detritus Dry Mass
+    
+  .details-content.species-view(ng-if="!bromeliad.data.detritus || bromeliad.data.detritus.length == 0 ")
+      span No detritus dry mass records for this bromeliad.
+  
+  .details-content.no-padding.no-margin
+    span(ng-repeat="detritus in bromeliad.data.detritus").detritus-dry-mass
+      b.detritus-dry-mass-range(ng-if="!detritus.max") > {{detritus.min}} μm
+      b.detritus-dry-mass-range(ng-if="detritus.max") {{detritus.min}} μm - {{detritus.max}} μm
+      span.detritus-dry-mass-value {{ detritus.mass }} g
+
+.modal-footer

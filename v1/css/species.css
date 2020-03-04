@@ -1,0 +1,20 @@
+.species-table {
+  margin-bottom: 0 !important;
+  width: auto;
+}
+
+.species-view-classification .row {
+  margin-bottom: 5px !important;
+}
+
+.species-view-name {
+  background: #eee;
+  color: #777;
+  padding: 2px 8px 2px 8px;
+  margin: 2px 4px 2px 4px;
+  border-radius: 0.5em;
+}
+
+.species-view.details-content {
+  margin-bottom: 10px;
+}

@@ -1,0 +1,57 @@
+.box.box-success.box-solid(style="margin-top: 150px")
+  .box-header
+    h3.box-title
+      div(ng-show="!edit")
+        i.fa.fa-plus
+        |   New Dataset
+      div(ng-show="edit")
+        i.fa.fa-pencil
+        |   Edit Dataset
+  .box-body
+    .row(style="margin-bottom: 5px")
+      .col-md-8
+        label Name 
+          span.th-unit required
+        .input-group
+          span.input-group-addon
+            i.fa.fa-list-alt
+          input.form-control(type='text', ng-model="dataset.name")
+      .col-md-4
+        label Year 
+          span.th-unit required
+        .input-group
+          span.input-group-addon
+            i.fa.fa-calendar
+          input.form-control(type='text', ng-model="dataset.year")
+    .row(style="margin-bottom: 5px")
+      .col-md-6
+        label Country 
+          span.th-unit required
+        .input-group
+          span.input-group-addon
+            i.fa.fa-globe
+          input.form-control(type="text", ng-model="dataset.country")
+      .col-md-6
+        label Location 
+          span.th-unit required
+        .input-group
+          span.input-group-addon
+            i.fa.fa-map-marker
+          input.form-control(type="text", ng-model="dataset.location")
+    .row(style="margin-bottom: 5px")
+      .col-md-6
+        label Latitude 
+        .input-group
+          span.input-group-addon Lat
+          input.form-control(type="text", placeholder="NA", ng-model="dataset.lat")
+      .col-md-6
+        label Longitude 
+        .input-group
+          span.input-group-addon Lng
+          input.form-control(type="text", placeholder="NA", ng-model="dataset.lng")
+  .box-footer.no-padding
+    a.confirm-left-button.confirm-buttons(ng-click="closeThisDialog()", href="")
+      span Cancel
+    a.confirm-right-button.confirm-buttons(ng-click="submit(dataset)", href="")
+      span(ng-if="!edit") Create
+      span(ng-if="edit") Update

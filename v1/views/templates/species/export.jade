@@ -1,0 +1,46 @@
+.box.box-primary.box-solid(style="margin-top: 150px")
+  .box-header
+    h3.box-title
+      i.fa.fa-cloud-download
+      span  Export
+  .box-body
+    //- p.export-title Select export options
+    .export-option
+      span.option
+        i.fa.fa-list-ul
+        span Export Content
+      span.value(uib-dropdown)
+        a(href="", uib-dropdown-toggle) 
+          | {{species.CONTENT_MAP[species.exportContent]}}
+          i.fa.fa-caret-down
+        ul(uib-dropdown-menu, style="left: auto; right: 0;")
+          li(ng-repeat="(k, v) in species.CONTENT_MAP")
+            a(href="", ng-click="species.setContent(k)") 
+              i.fa.fa-check(ng-if="k == species.exportContent")
+              i.fa.fa-check(ng-if="k != species.exportContent", style="color: transparent;")
+              | {{v}}
+    .export-option
+      span.option
+        i.fa.fa-file-excel-o
+        span File type
+      span.value(uib-dropdown)
+        a(href="", uib-dropdown-toggle)
+          | {{species.FILE_MAP[species.fileType]}}
+          i.fa.fa-caret-down
+        ul(uib-dropdown-menu, style="left: auto; right: 0")
+          li(ng-repeat="(k, v) in species.FILE_MAP")
+            a(href="", ng-click="species.setFileType(k)")
+              i.fa.fa-check(ng-if="k == species.fileType")
+              i.fa.fa-check(ng-if="k != species.fileType", style="color: transparent;")
+              | {{v}}
+  .box-footer.no-padding
+    a.confirm-left-button.confirm-buttons(ng-click="closeThisDialog()", href="")
+      span Cancel
+    a.confirm-right-button.confirm-buttons(ng-click="species.export()", href="", ng-if="species.stage == 0")
+      span Export
+    a.confirm-right-button.confirm-buttons(ng-if="species.stage == 1")
+      i.fa.fa-spin.fa-circle-o-notch
+      span Generating File..
+    a.confirm-right-button.confirm-buttons(href="{{species.link}}", download="{{species.fileName}}", ng-if="species.stage == 2")
+      i.fa.fa-cloud-download
+      span Download

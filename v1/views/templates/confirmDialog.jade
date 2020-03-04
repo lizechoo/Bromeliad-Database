@@ -1,0 +1,15 @@
+.box.box-warning.box-solid(style="margin-top: 150px")
+  .box-header
+    h3.box-title
+      i.fa.fa-warning
+      |  Confirm
+  .box-body
+    p.text-mute
+      center(ng-bind-html="message")
+    div(ng-show="doubleConfirm")
+      input.form-control(type='text', placeholder='{{doubleConfirm}}', ng-model="doubleConfirmText")
+  .box-footer.no-padding
+    a.confirm-left-button.confirm-buttons(ng-click="closeThisDialog()", href="")
+      span Cancel
+    a.confirm-right-button.confirm-buttons(ng-click="confirm(doubleConfirmText)", href="")
+      span Confirm

@@ -1,0 +1,41 @@
+table.table.table-hover.species-table(ng-table='params')
+  thead
+    tr
+      th.text-center(ng-repeat='column in columns'
+                     ng-show='column.visible'
+                     ng-class="{'sortable': column.sortable, \
+                                'sort-asc': params.isSortBy(column.field, 'asc'), \
+                                'sort-desc': params.isSortBy(column.field, 'desc')}", 
+                     ng-click="sort(column)"
+                     uib-tooltip='{{column.description}}' tooltip-append-to-body='true')
+        div {{column.title}}
+  tbody
+    tr(ng-repeat='i in countArray(count)' ng-show='$data[i]'
+       ng-class='{ warning: isSelected($data[i])}' ng-click='select($data[i])')
+       
+      td(ng-repeat='column in columns' ng-if='column.visible' style='white-space:nowrap')
+        div(ng-if="column.trait && !column.tachet", style='{{naColor($data[i].traits[column.field])}}')
+          div(ng-if="$data[i].traits[column.field] != null")
+            | {{ $data[i].traits[column.field] }}
+          div(ng-if="$data[i].traits[column.field] == null", style="{{naColor('NA')}}")
+            | NA
+        div(ng-if="column.trait && column.tachet", style='{{naColor($data[i].tachet[column.field])}}')
+          div(ng-if="$data[i].tachet[column.field] != null")
+            | {{ $data[i].tachet[column.field] }}
+          div(ng-if="$data[i].tachet[column.field] == null", style="{{naColor('NA')}}")
+            | NA
+        div(ng-if="!column.trait")
+          div(ng-if="column.field == 'bwg_name'")
+            a(ng-click="viewSpecies($data[i].species_id)", href="")
+              | {{$data[i][column.field]}}
+          div(ng-if="column.field != 'bwg_name'")
+            div(ng-if="column.field != 'names'", style='{{naColor($data[i][column.field])}}')
+              | {{$data[i][column.field]}}
+            div(ng-if="column.field == 'names'")
+              | {{$data[i].names[0]}} 
+              span(uib-dropdown, ng-if="$data[i].names && $data[i].names.length > 1")
+                a.label.label-primary(href="", uib-dropdown-toggle) 
+                  | {{ $data[i].names.length - 1 }} more
+                ul.uib-dropdown-menu(style="right: 0; left: inherit;")
+                  li(ng-repeat="name in $data[i].names", ng-if="$index > 0")
+                    a {{ name }}

@@ -1,0 +1,40 @@
+.modal-header
+  span.header-icon
+    i.fa.fa-search
+  form.header-form(ng-submit="species.doSearch(search)", style="display: inline")
+    input.header-textbox(type="text", autofocus, ng-model="search"
+    placeholder="Search for a species by classification, or alternate names")
+    span.selector-hint(ng-if="search != null && search.length > 0")
+      | Hit ⏎ to search
+.modal-body.no-padding
+  div(style="overflow-x: auto")
+    table.table.table-hover.selector-table
+      thead
+        tr
+          th(ng-repeat="column in species.classificationColumns")
+            | {{column.label}}
+      tbody 
+        tr(ng-repeat="row in species.data", ng-click="species.setSelected(row)",
+        ng-class="{warning: species.isSelected(row)}")
+          td(ng-repeat="column in species.classificationColumns",
+          ng-class="{'na': !row[column.field] || row[column.field] == 'NA'}")
+            span(ng-if="column.field != 'bwg_name'") {{row[column.field]}}
+            a(ng-if="column.field == 'bwg_name'", href="", ng-click="species.showSpecies(row.species_id)") 
+              | {{row.bwg_name}}
+  .table-controls
+    span(ng-if="!species.selected")
+      i.fa.fa-info-circle
+      |  Click a species to select
+    span(ng-if="species.selected")
+      small.badge.bg-yellow selected
+      |  {{species.selected.bwg_name}} 
+      a.fa.fa-times(href="", ng-click="species.selected = null")
+    .pull-right
+      uib-pagination(total-items="species.total", ng-model="species.page", max-size="5",
+      class="pagination-md", boundary-links="true", rotate="false", ng-change="species.setPage()",
+      previous-text="‹", next-text="›", first-text="«", last-text="»")
+.modal-footer
+  .pull-left
+    button.btn.btn-default(ng-click="$dismiss()") Cancel
+  .pull-right
+    button.btn.btn-primary(ng-click="species.submit()", ng-disabled="!species.selected") Select Species

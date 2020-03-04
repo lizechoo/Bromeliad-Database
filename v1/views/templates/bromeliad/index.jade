@@ -1,0 +1,109 @@
+aside.right-side
+  .content-nav-holder
+  .content-table-header
+    //- Back button
+    a.content-header-left.button(href="", ng-click="bromeliad.back()")
+      i.fa.fa-chevron-left
+      |  Back
+    //- Title: Visits
+    a.content-header-left
+      i.fa.fa-tree
+      |   Bromeliads
+    //- Dataset selector
+    span(uib-dropdown, dropdown-append-to-body)
+      a.content-header-left.tag(ng-if="!bromeliad.dataset", href="", uib-dropdown-toggle)
+        span.description All Datasets
+      a.content-header-left.tag(ng-if="bromeliad.dataset", href="", uib-dropdown-toggle)
+        span.description {{ bromeliad.dataset.name }}
+      ui.uib-dropdown-menu
+        li
+          a(ui-sref="bromeliad({dataset_id: null, visit_id: null})")
+            i.fa.fa-check(ng-if="!bromeliad.dataset")
+            i.fa.fa-check(ng-if="bromeliad.dataset", style="color: transparent;")
+            | All Datasets
+        li(ng-repeat="d in bromeliad.datasets")
+          a(ui-sref="bromeliad({dataset_id: d.dataset_id, visit_id: null})")
+            i.fa.fa-check(ng-if="bromeliad.dataset_id == d.dataset_id")
+            i.fa.fa-check(ng-if="bromeliad.dataset_id != d.dataset_id", style="color: transparent;")
+            | {{d.name}}
+    //- Visit selector
+    span(uib-dropdown, dropdown-append-to-body)
+      a.content-header-left.tag.yellow(ng-if="!bromeliad.visit && !bromeliad.dataset", href="", uib-dropdown-toggle)
+        span.description All Visits
+      a.content-header-left.tag.yellow(ng-if="!bromeliad.visit && bromeliad.dataset", href="", uib-dropdown-toggle)
+        span.description All Visits in Dataset
+      a.content-header-left.tag.yellow(ng-if="bromeliad.visit", href="", uib-dropdown-toggle)
+        span.description {{ bromeliad.visit.habitat }} {{bromeliad.visit.date? '('+bromeliad.visit.date+')' :''}}
+      ui.uib-dropdown-menu
+        li
+          a(ui-sref="bromeliad({visit_id: null})")
+            i.fa.fa-check(ng-if="!bromeliad.visit")
+            i.fa.fa-check(ng-if="bromeliad.visit", style="color: transparent;")
+            | All Visits
+        li(ng-repeat="v in bromeliad.visits")
+          a(ui-sref="bromeliad({dataset_id: null, visit_id: v.visit_id})")
+            i.fa.fa-check(ng-if="bromeliad.visit_id == v.visit_id")
+            i.fa.fa-check(ng-if="bromeliad.visit_id != v.visit_id", style="color: transparent;")
+            | {{v.habitat}} {{v.date? '('+v.date+')' :''}}
+    .pull-right(ng-show="!bromeliad.hasSelected()")
+      a.content-header-right.button(href="", ng-click="bromeliad.new()")
+        i.fa.fa-plus
+        |   New
+      a.content-header-right.button(href="", ng-click="bromeliad.upload()")
+        i.fa.fa-upload
+        |   Upload
+    .pull-right(ng-show="bromeliad.hasSelected()")
+      a.content-header-right.selects
+        small.badge(style="background-color: #9b59b6 !important") {{ bromeliad.selected.length }}
+        |  Selected
+      a.content-header-right.button(href="", ng-click="bromeliad.edit()")
+        i.fa.fa-pencil
+        |  Edit
+      a.content-header-right.button(href="", ng-click="bromeliad.delete()")
+        i.fa.fa-trash-o
+        |  Delete
+      a.content-header-right.button.collapsible(href="", ng-click="bromeliad.clearSelected()")
+        i.fa.fa-undo
+        |  Deselect all
+
+  .content-table-container
+    .content-table-main(resize, ng-style="resizeWithOffset()")
+      .no-data(ng-if="bromeliad.data.length == 0")
+        i.fa.fa-question
+        h4 No bromeliads found
+          | {{ bromeliad.dataset_id?' for this dataset':'' }}
+          | {{ bromeliad.visit_id?' for this visit':'' }}
+        h4
+          a(href="", ng-click="bromeliad.new()") Add
+          |  a new bromeliad?
+      table.table.table-hover.visits-table(ng-if="bromeliad.data.length > 0")
+        thead
+          tr
+            th
+            th(ng-repeat="c in bromeliad.fields", ng-if="c.visible",
+            ng-click="bromeliad.sorting.sort(c.field)")
+              | {{ c.title }}
+              span.th-unit  {{c.unit}}
+              i.fa.fa-sort.sort-icon(ng-if="bromeliad.sorting.field != c.field")
+              i.fa.fa-sort-asc.sort-icon(ng-if="bromeliad.sorting.is(c.field, false)")
+                i.fa.fa-sort-desc.sort-icon(ng-if="bromeliad.sorting.is(c.field, true)")
+            th(ng-repeat="c in bromeliad.attributes")
+              | {{ c }}
+        tbody
+          tr(ng-repeat="row in bromeliad.data | orderBy:bromeliad.sorting.field:bromeliad.sorting.desc",
+          ng-class="{ warning: bromeliad.isSelected(row) }",
+          ng-click="bromeliad.toggleSelect(row)")
+            th
+              a(ng-click="bromeliad.showBromeliad(row.bromeliad_id)", href="")
+                | View
+            td(ng-repeat="column in bromeliad.fields", ng-if="column.visible"
+            ng-class="{ na: !row[column.field] || row[column.field] == 'NA' }")
+              span(ng-if="column.field != 'dataset_name'")
+                | {{ row[column.field] || 'NA' }}
+              a(ng-if="column.field == 'dataset_name'", href="",
+              ui-sref="dataset-view.overview({dataset_id: row.dataset_id})")
+                | {{ row[column.field] || 'NA' }}
+            td(ng-repeat="c in bromeliad.attributes", ng-class="{ na: !row.attributes[c] || row.attributes[c] == 'NA' }")
+              | {{ row.attributes[c] || 'NA'}}
+
+  .content-table-footer

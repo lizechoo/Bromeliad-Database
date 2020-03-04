@@ -1,0 +1,61 @@
+.modal-header
+  h3.modal-title
+    i.fa.fa-arrows-h
+    |   {{measurement.edit?'Edit': 'Add'}} Measurements
+.modal-body
+  .row
+    .col-md-12
+      .input-group
+        span.input-group-addon
+          i.fa.fa-bug
+        input.form-control(type="text", 
+        ng-model="measurement.k",
+        placeholder="Enter a BWG code or use the Species Selector",
+        uib-typeahead="s as s.bwg_name \
+        for s in measurement.speciesAutoComplete($viewValue)",
+        typeahead-on-select="measurement.onSpeciesSelect($item)")
+        span.input-group-btn
+          button.btn.btn-default(ng-click="measurement.speciesSelector()") 
+            | Species Selector
+.modal-body.no-padding(style="overflow-x: auto; max-height: 400px")
+  .no-data-sm(ng-if="measurement.species.length == 0")
+    p 
+      i.fa.fa-question
+      span No species selected yet.
+  table.table.table-hover.new-measurement-table(ng-if="measurement.species.length > 0", style="width: auto; margin-bottom: 0")
+    thead
+      tr
+        th BWG code
+        th Alternate names
+        th Category/Range
+    tbody
+      tr(ng-repeat="species in measurement.species", style="white-space: nowrap")
+        td {{species.bwg_name}} 
+          a.remove-x(ng-click="measurement.removeSpecies(species)", style="color: #999", href="")
+            i.fa.fa-times
+        td(style="width: 100%")
+          .text-muted(ng-if="!species.names || species.names.length == 0") No alternate names
+          span.species-view-name(ng-repeat="name in species.names")
+            | {{name}}
+        td
+          .btn-group(ng-init="species.category_range = 'category'")
+            button.btn.btn-xs(ng-click="species.category_range = 'category'"
+                              ng-class="{ disabled: species.category_range == 'category', \
+                                          'btn-primary': species.category_range == 'category', \
+                                          'btn-default': species.category_range != 'category' }") 
+              | Category
+            button.btn.btn-xs(ng-click="species.category_range = 'range'"
+                              ng-class="{ disabled: species.category_range == 'range', \
+                                          'btn-primary': species.category_range == 'range', \
+                                          'btn-default': species.category_range != 'range' }")  
+              | Range
+.modal-body.no-padding  
+  .table-controls
+    span(ng-if="measurement.species.length > 0")
+      i.fa.fa-info-circle
+      |  You will enter measurements for species when done selecting species
+.modal-footer
+  .pull-left
+    button.btn.btn-default(ng-click="$dismiss()") Cancel
+  .pull-right
+    button.btn.btn-primary(ng-click="measurement.submit()") Add to Dataset

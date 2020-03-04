@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html ng-app="app">
+  <head>
+    <meta charset="UTF-8">
+    <title>Bromeliad Working Group Database | {{ main.pageTitle }}</title>
+    <link href="styles/vendor.css" rel="stylesheet" type="text/css">
+    <link href="styles/app.css" rel="stylesheet" type="text/css">
+  </head>
+  <body ng-controller="MainC as main" class="fixed skin-blue">
+    <header class="header"><a href="index.html" class="logo">
+        <!-- Add the class icon to your logo image or logo icon to add the margining--><i class="glyphicon glyphicon-tree-conifer"></i>BWGdb</a>
+      <!-- Header Navbar: style can be found in header.less-->
+      <nav role="navigation" class="navbar navbar-static-top">
+        <div class="navbar-right">
+          <ul class="nav navbar-nav">
+            <li class="dropdown user user-menu"><a data-toggle="dropdown" class="dropdown-toggle"><i class="glyphicon glyphicon-user"></i><span>{{ main.user.name }} <i class="caret"></i></span></a>
+              <ul class="dropdown-menu">
+                <!-- User image-->
+                <li class="user-header bg-light-blue"><img ng-src="{{main.userImage || 'img/bwg_logo.png'}}" alt="User Image" ng-click="main.setAvatar()" uib-tooltip="Change Profile Picture" href="" class="img-circle avatar-img">
+                  <p>{{ main.user.name }}<small>{{ main.user.role | capital }}</small></p>
+                </li>
+                <li class="user-footer">
+                  <div class="pull-left"><a href="#" ng-click="main.setPassword()" class="btn btn-default btn-flat">Set password</a></div>
+                  <div class="pull-right"><a href="#" ng-click="main.logout()" class="btn btn-default btn-flat">Sign out</a></div>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <div class="wrapper row-offcanvas row-offcanvas-left">
+      <!-- Left side column. contains the logo and sidebar-->
+      <aside class="left-side sidebar-offcanvas">
+        <!-- sidebar: style can be found in sidebar.less-->
+        <section class="sidebar">
+          <!-- Sidebar user panel-->
+          <div class="user-panel">
+            <div class="pull-left image"><img ng-src="{{main.userImage || 'img/bwg_logo.png'}}" ng-click="main.setAvatar()" uib-tooltip="Change Profile Picture" tooltip-placement="bottom-right" alt="User Image" href="" class="img-circle"></div>
+            <div class="pull-left info">
+              <p>{{ main.user.name }}</p><a href="#"><i class="fa fa-circle text-success"></i> {{main.user.role}}</a>
+            </div>
+          </div>
+          <!-- search form-->
+          <!--
+          <form action="#" method="get" class="sidebar-form">
+          <div class="input-group">
+          <input type="text" name="q" class="form-control" placeholder="Search..."/>
+          <span class="input-group-btn">
+          <button type='submit' name='seach' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
+          </span>
+          </div>
+          </form>
+          -->
+          <!-- /.search form-->
+          <!-- sidebar menu: : style can be found in sidebar.less-->
+          <ul class="sidebar-menu">
+            <li ui-sref-active="active"><a ui-sref="dashboard"><i class="fa fa-dashboard"></i><span>Dashboard</span></a></li>
+            <li ui-sref-active="active"><a ui-sref="species"><i class="fa fa-bug"></i><span>Species</span></a></li>
+            <li ui-sref-active="active"><a ui-sref="dataset"><i class="fa fa-list-alt"></i><span>Datasets</span></a></li>
+            <li ui-sref-active="active"><a ui-sref="visit"><i class="fa fa-map-marker"></i><span>Visits</span></a></li>
+            <li ui-sref-active="active"><a ui-sref="bromeliad"><i class="fa fa-tree"></i><span>Bromeliads</span></a></li>
+            <li ui-sref-active="active"><a ui-sref="history"><i class="fa fa-history"></i><span>History</span></a></li>
+            <li ui-sref-active="active" ng-show="main.user.role == 'admin'"><a ui-sref="admin.users"><i class="fa fa-cog"></i><span>Admin Panel</span></a></li>
+          </ul>
+        </section>
+        <!-- /.sidebar-->
+      </aside>
+      <div ui-view=""></div>
+    </div>
+    <!-- ./wrapper-->
+    <script src="vendor.js"></script>
+    <script src="path.js"></script>
+    <script src="app.js"></script>
+    <script src="dependencies.js"></script>
+    <script src="templates.js"></script>
+  </body>
+</html>

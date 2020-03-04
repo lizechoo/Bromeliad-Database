@@ -1,0 +1,15 @@
+{
+  "name": "v1test",
+  "version": "1.0.0",
+  "description": "BWGdb testing suite for v1 API",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha -c --compilers coffee:coffee-script/register ."
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chai": "^3.3.0",
+    "request": "^2.63.0"
+  }
+}

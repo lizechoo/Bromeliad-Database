@@ -1,0 +1,68 @@
+.modal-header
+  h3.modal-title
+    i.fa.fa-map-marker
+    |  {{ visit.data.habitat }}
+    button.close(ng-click="visit.dismiss()") &times; Close
+    
+.modal-body.no-padding
+  .details-section
+    span Details
+  
+  .details-content.species-view-classification
+    .row
+      .col-xs-3
+        div 
+          b Habitat
+        div {{ visit.data.habitat }}
+      .col-xs-3
+        div 
+          b Date
+        div {{ visit.data.date || 'NA'}}
+      .col-xs-3
+        div 
+          b Min. Rainfall 
+          span.th-unit mm
+        div {{ visit.data.min_rainfall || 'NA'}}
+      .col-xs-3
+        div 
+          b Max. Rainfall 
+          span.th-unit mm
+        div {{ visit.data.max_rainfall || 'NA' }}
+    .row
+      .col-xs-3
+        div 
+          b Min. Temp.
+          span.th-unit °C
+        div {{ visit.data.min_temperature || 'NA' }}
+      .col-xs-3
+        div 
+          b Max. Temp.
+          span.th-unit °C
+        div {{ visit.data.max_temperature || 'NA' }}
+      .col-xs-3
+        div 
+          b Min. Elevation 
+          span.th-unit m
+        div {{ visit.data.min_elevation || 'NA'}}
+      .col-xs-3
+        div 
+          b Max. Elevation 
+          span.th-unit m
+        div {{ visit.data.max_elevation || 'NA'}}
+    .row
+      .col-xs-3
+        div 
+          b Collection method
+        div {{ visit.data.collection_method || 'NA' }}
+      .col-xs-3
+        div 
+          b Latitude 
+          span.th-unit DD
+        div {{ visit.data.latitude || 'NA' }}
+      .col-xs-3
+        div 
+          b Longitude 
+          span.th-unit DD
+        div {{ visit.data.longitude || 'NA' }}
+
+.modal-footer

@@ -1,0 +1,12 @@
+{
+  "datasets": [
+    {
+      "name": "latNaN",
+      "country": "Canada",
+      "location": "Vancouver",
+      "lat": "NaN",
+      "lng": 172.2123,
+      "year": 2000
+    }
+  ]
+}

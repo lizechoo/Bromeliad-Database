@@ -1,0 +1,12 @@
+.na {
+  color: #ccc !important;
+}
+
+.visits-table > thead > tr > th {
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.visits-table > tbody > tr > td {
+  white-space: nowrap;
+}

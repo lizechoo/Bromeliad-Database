@@ -1,0 +1,34 @@
+.row.tachet-box
+  .col-md-8
+    .box
+      .box-header
+        h3.box-title
+          | Tachet Traits
+        .box-tools.pull-right
+          button.btn.btn-small.btn-default(style="margin-right: 5px;", 
+          ng-click="admin.newTrait()") 
+            | New Trait
+          button.btn.btn-small.btn-default(ng-click="admin.updateDescriptions()")
+            | Update Descriptions
+      .box-body.no-padding
+        .no-data-sm(ng-if="!admin.hasTraits()")
+          p
+            i.fa.fa-question
+            span No tachet traits yet.
+        table.table.tachet-table(ng-if="admin.hasTraits()")
+          thead
+            tr
+              th Trait
+              th Description
+              th Delete
+              th Reorder trait
+          tbody
+            tr(ng-repeat="row in admin.traits")
+              td {{ row.trait }}
+              td.tachet-description
+                input(type="text", placeholder="No description for this trait yet", ng-model="row.description")
+              td
+                a(ng-click="admin.deleteTrait(row.trait)", href="")
+                  i.fa.fa-times
+              td
+                a(ng-click="admin.moveTrait(row.trait)", href="") Move

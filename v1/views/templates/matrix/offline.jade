@@ -1,0 +1,15 @@
+.box.box-primary.box-solid(style="margin-top: 150px")
+  .box-header
+    h3.box-title
+      i.fa.fa-download
+      span  Edit Offline
+  .box-body
+    uploader(types="['csv', 'tsv']", max-size="100000", on-upload="matrix.onUpload(file)")
+    .upload-error
+      i.fa.fa-info
+      span To edit matrix offline, download CSV file and upload the updated file
+  .box-footer.no-padding
+    a.confirm-left-button.confirm-buttons(ng-click="closeThisDialog()", href="")
+      span Cancel
+    a.confirm-right-button.confirm-buttons(href="{{matrix.link}}", download="matrix.csv")
+      span Download Matrix

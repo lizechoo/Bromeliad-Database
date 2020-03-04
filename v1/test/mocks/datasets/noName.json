@@ -1,0 +1,11 @@
+{
+  "datasets": [
+    {
+      "country": "noName",
+      "location": "Vancouver",
+      "year": 2015,
+      "lat": 14.1678,
+      "lng": 172.2123
+    }
+  ]
+}

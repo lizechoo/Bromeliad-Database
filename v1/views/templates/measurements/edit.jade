@@ -1,0 +1,59 @@
+.box.box-primary.box-solid(style="margin-top: 150px")
+  .box-header
+    h3.box-title
+      i.fa.fa-pencil
+      span(ng-if="measurement.add")
+        |  Add a {{ measurement.category?'category':'range' }}
+      span(ng-if="!measurement.add")
+        |  Edit Measurement
+  .box-body
+    .row(ng-if="measurement.category", style="margin-bottom: 5px")
+      .col-md-6
+        label Category 
+          span.th-unit required
+        
+        input.form-control(type="text", ng-model="measurement.data.value")
+    .row(ng-if="!measurement.category" style="margin-bottom: 5px")
+      .col-md-4
+        label Min 
+          span.th-unit required
+        input.form-control(type="text", ng-model="measurement.data.min")
+      .col-md-4
+        label Max 
+          span.th-unit required
+        input.form-control(type="text", ng-model="measurement.data.max")
+      .col-md-4
+        label Unit 
+          span.th-unit required
+        input.form-control(type="text", ng-model="measurement.data.unit")
+        
+    .row(style="margin-bottom: 5px")
+      .col-md-12
+        label Biomass 
+        .input-group
+          span.input-group-btn(uib-dropdown)
+            button.btn.btn-default(uib-dropdown-toggle)
+              | {{ measurement.data.biomass.dry_wet == 'dry'?'Dry':'Wet' }} 
+              span.caret
+            ul.dropdown-menu(uib-dropdown-menu, role="menu")
+              li.dropdown-header Dry/Wet
+              li
+                a(href="", ng-click="measurement.data.biomass.dry_wet = 'dry'") Dry
+              li
+                a(href="", ng-click="measurement.data.biomass.dry_wet = 'wet'") Wet
+          input.form-control(type='text', ng-model="measurement.data.biomass.value", placeholder="NA")
+          span.input-group-btn(uib-dropdown)
+            button.btn.btn-default(uib-dropdown-toggle)
+              | {{ measurement.data.biomass.unit }} 
+              span.caret
+            ul.dropdown-menu(uib-dropdown-menu, role="menu")
+              li.dropdown-header Unit
+              li
+                a(href="", ng-click="measurement.data.biomass.unit = 'mg'") mg
+              li
+                a(href="", ng-click="measurement.data.biomass.unit = 'g'") g
+  .box-footer.no-padding
+    a.confirm-left-button.confirm-buttons(ng-click="closeThisDialog()", href="")
+      span Cancel
+    a.confirm-right-button.confirm-buttons(ng-click="measurement.submit()", href="")
+      span Confirm

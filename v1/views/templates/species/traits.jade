@@ -1,0 +1,81 @@
+.row
+  div(ng-class="{ 'col-md-10': !collapseCol, 'col-md-12': collapseCol }")
+    .box
+      .box-header
+        h3.box-title Species traits
+        .box-tools.pull-right
+          a.btn.btn-default.btn-sm(ng-href='#/species/new') New Species
+          | 
+          a.btn.btn-default.btn-sm(ng-href='{{ traits.exportCurrent() }}') Export current view to CSV
+          | 
+          a.btn.btn-default.btn-sm(ng-href='{{ exportData() }}') Export entire table
+          | 
+          button.btn.btn-default.btn-sm(ng-show='collapseCol', ng-click='collapseCol = !collapseCol')
+            i.fa.fa-columns  Show SideBar
+      // /.box-header
+      .box-body.table-responsive.no-padding
+        .row
+          .col-md-12
+            p.pull-right(ng-if='traits.controls.search', style='padding-right: 0.5em')
+              | Search results for 
+              b {{ traits.controls.search }}
+              button.close(type='button', ng-click='traits.search(null)', style='margin-left: 2px') ×
+            p(style='padding-left: 0.5em') {{ traits.getShowing() }}
+        .row(style='overflow: auto; margin: 0')
+          div
+            table.table.table-hover(ng-table='traits.tableParams')
+              thead
+                tr
+                  th(style='width: 0 !important')
+                  th.text-center(ng-repeat='column in traits.columns', ng-show='column.visible || traits.allColumn', ng-class="{'sortable': column.sortable, 'sort-asc': tableParams.isSortBy(column.field, 'asc'), 'sort-desc': tableParams.isSortBy(column.field, 'desc')}", ng-click="traits.sort(column)")
+                    div {{column.title}}
+              tbody
+                tr(ng-repeat='species in $data', ng-class='{ warning:species.species_id == selectedSpecies.species_id }', ng-click='selectSpecies(species)')
+                  td
+                    a(href='#/species/edit/{{ species.species_id }}', tooltip='Edit')
+                      i.fa.fa-pencil
+                    a(href='#/species/traits/{{ species.bwg_name }}', tooltip='Show Traits')
+                      i.fa.fa-bar-chart-o
+                  td(ng-repeat='column in traits.columns', ng-show='column.visible || traits.allColumn')
+                    div(ng-show="column.field != 'names'") {{species[column.field]}}
+                    div(ng-show="column.field == 'names'", ng-init="numNames = species['names'].length")
+                      | {{ species['names'][0] }}
+                      | 
+                      small.label.label-warning(ng-show='numNames > 1', popover-trigger='mouseenter : mouseleave', popover="{{ traits.formatNames(species['names']) }}") {{ numNames - 1 }} more
+      .overlay(ng-show='traits.controls.loading')
+      .loading-img(ng-show='traits.controls.loading')
+  .col-md-2(ng-show='!collapseCol')
+    .row
+      .col-md-12
+        .box.box-info
+          .box-header
+            i.fa.fa-search
+            .box-tools.pull-right
+              button.btn.btn-default.btn-sm(ng-click='collapseCol = !collapseCol')
+                i.fa.fa-minus
+          // /.box-header
+          .box-body(ng-init='collapseCol = false')
+            .row
+              form.sidebar-form(ng-submit='traits.search(search)')
+                .input-group
+                  input.form-control(type='text', placeholder='Search...', ng-model='search')
+                  span.input-group-btn
+                    button#search-btn.btn.btn-flat(type='submit', name='seach')
+                      i.fa.fa-search
+    .row
+      .col-md-12
+        .box.box-info
+          .box-header
+            i.fa.fa-columns
+            .box-tools.pull-right
+              button.btn.btn-default.btn-sm(ng-click='collapseCol = !collapseCol')
+                i.fa.fa-minus
+          // /.box-header
+          .box-body.no-margin(ng-init='collapseCol = false')
+            label
+              input(type='checkbox', ng-model='traits.allColumn')
+              |  Show all columns
+            div(ng-repeat="column in traits.columns")
+              label
+                input(type='checkbox', ng-model='column.visible', ng-disabled="traits.allColumn")
+                |  {{ column.title }}

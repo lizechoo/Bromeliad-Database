@@ -1,0 +1,53 @@
+.box.box-primary.box-solid(style="margin-top: 150px")
+  .box-header
+    h3.box-title
+      i.fa.fa-upload
+      span(ng-if="species.stage == 0")  Upload CSV or TSV
+      span(ng-if="species.stage > 0")  Upload Status
+  .box-body
+    div(ng-if="species.stage == 0")
+      uploader(types="['csv', 'tsv']", max-size="100000", on-upload="species.onUpload(file)")
+    div(ng-if="species.stage != 0")
+      .upload-status.complete
+        i.fa.fa-check
+        span Validate columns
+      .upload-status(ng-class="species.getStatusClass(1)")
+        i.fa(ng-class="species.getIconClass(1)")
+        span Upload file to server
+      .upload-status(ng-class="species.getStatusClass(2)")
+        i.fa(ng-class="species.getIconClass(2)")
+        span Populate database with species
+      div(ng-if="species.stage == 2")
+        .upload-progress
+          | Populating 
+          b {{species.counter.count}} 
+          | of 
+          b {{species.total}} 
+          | species
+        .progress.progress-sm.active.upload-progress-bar
+          .progress-bar.progress-bar-striped(ng-style="species.getProgress()",
+          ng-class="species.getProgressClass()")
+      div(ng-if="species.stage < 2")
+        .upload-progress Pending
+        .progress.progress-sm.active.upload-progress-bar
+          .progress-bar.progress-bar-default.progress-bar-striped(style="width: 100%")
+      div(ng-if="species.stage > 2")
+        .upload-progress Upload complete
+        .progress.progress-sm.active.upload-progress-bar
+          .progress-bar(style="width: 100%", ng-class="species.getProgressClass()")
+      .upload-error(ng-if="species.counter.duplicates.length > 0")
+        i.fa.fa-exclamation-triangle
+        span {{species.counter.duplicates.length}} out of {{species.total}} species were not 
+          | inserted because of conflicting BWG code.
+  .box-footer.no-padding
+    div(ng-if="species.stage == 0")
+      a.confirm-left-button.confirm-buttons(ng-click="closeThisDialog()", href="")
+        span Cancel
+      a.confirm-right-button.confirm-buttons(ng-click="species.help()", href="")
+        span Help
+    div(ng-if="species.stage == 1 || species.stage == 2")
+      a.full-button.confirm-buttons(ng-click="closeThisDialog()", href="")
+        span Cancel
+    div(ng-if="species.stage > 2")
+      a.full-button.confirm-buttons(ng-click="species.finish()", href="")
+        span Finish

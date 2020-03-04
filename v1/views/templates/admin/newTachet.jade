@@ -1,0 +1,42 @@
+.box.box-primary.box-solid(style="margin-top: 150px")
+  .box-header
+    h3.box-title
+      i.fa.fa-plus  New Tachet Trait
+  .box-body
+    .row(style="margin-bottom: 5px")
+      .col-md-12
+        label Trait 
+          span.th-unit required
+        .input-group
+          span.input-group-addon
+            i.fa.fa-bookmark
+          input.form-control(type='text', ng-model="admin.data.trait")
+    .row(style="margin-bottom: 5px")
+      .col-md-12
+        label Description 
+          span.th-unit optional
+        .input-group
+          span.input-group-addon
+            i.fa.fa-info
+          input.form-control(type='text', ng-model="admin.data.description")
+    .row(style="margin-bottom: 5px")
+      .col-md-12
+        label Place trait
+        form.form-group(ng-init="admin.order = 'all'")
+          label
+            input(type="radio", ng-model="admin.order", value="front", style="margin-right: 10px")
+            | before all traits
+          br
+          label
+            input(type="radio", ng-model="admin.order", value="all", style="margin-right: 10px")
+            | after all traits
+          br
+          label
+            input(type="radio", ng-model="admin.order", value="select", style="margin-right: 10px")
+            | after selected trait: 
+            select(ng-options="row.trait as row.trait for row in admin.traits", ng-model="admin.after")
+  .box-footer.no-padding
+    a.confirm-left-button.confirm-buttons(ng-click="closeThisDialog()", href="")
+      span Cancel
+    a.confirm-right-button.confirm-buttons(ng-click="admin.submit()", href="")
+      span Submit

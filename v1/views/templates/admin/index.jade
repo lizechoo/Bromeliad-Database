@@ -1,0 +1,19 @@
+aside.right-side
+  .content-nav-holder
+  .content-table-header
+    a.content-header-left.button(href="", ui-sref="admin.users", ui-sref-active="active")
+      i.fa.fa-user
+      |  Users
+    a.content-header-left.button(href="", ui-sref="admin.tachet", ui-sref-active="active")
+      i.fa.fa-bug
+      |  Tachet Traits
+    a.content-header-left.button(href="", ui-sref="admin.markdowns", ui-sref-active="active")
+      i.fa.fa-file-text
+      |  Markdown Articles
+      
+    .pull-right(ng-if="admin.$state.current.name == 'admin.users'")
+      a.content-header-right.button(href="", ng-click="admin.newUser()")
+        i.fa.fa-user-plus
+        |   New User
+      
+  div(ui-view="")

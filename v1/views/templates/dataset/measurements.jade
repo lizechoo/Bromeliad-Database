@@ -1,0 +1,149 @@
+.details-section(ng-if="dataset.newSpecies.length > 0")
+  span New Measurements
+  .pull-right
+    a(href="" ng-click="dataset.saveNew()", style="margin-right: 2px")
+      i.fa.fa-check
+      |  Save added species  
+    a(href="" ng-click="dataset.discardNew()")
+      i.fa.fa-times
+      |  Discard changes 
+
+.details-content(ng-if="dataset.newSpecies.length > 0")         
+  .box.box-success.measurement-box(ng-repeat="species in dataset.newSpecies")
+    .box-header
+      h3.box-title
+        i.fa.fa-bug
+        a(href="", ng-click="dataset.showSpecies(species.species_id)", style="margin-right: 2px")
+          | {{species.bwg_name}}
+        a.remove-x(href="", ng-click="dataset.removeAddedSpecies(species)")
+          i.fa.fa-times
+      .box-tools.pull-right
+        span.text-green
+          i.fa.fa-magic 
+          strong  New
+
+    .box-body.no-padding
+      span.category-range
+        i.fa(ng-class="{ 'fa-bars': species.category_range == 'category', \
+                         'fa-arrows-v': species.category_range == 'range'}")
+        span(ng-if="species.category_range == 'category'")  Categories
+        span(ng-if="species.category_range == 'range'")  Ranges
+        span.pull-right(style="margin-right: 5px")
+          button.btn.btn-xs.btn-default(ng-click="dataset.newMeasurementRow(species)")
+            | Add a {{species.category_range}}
+      table.table.table-condensed.table-hover.measurement-table
+        thead
+          tr
+            th 
+            th(ng-if="species.category_range == 'category'") Category
+            
+            th(ng-if="species.category_range == 'range'") min
+            th(ng-if="species.category_range == 'range'") max
+            th(ng-if="species.category_range == 'range'") Unit
+            
+            th Biomass 
+              span.th-unit(ng-init="species.unit = 'mg'", uib-dropdown, dropdown-append-to-body="true") 
+                a(href="", uib-dropdown-toggle)
+                  | {{species.unit}}  
+                  i.fa.fa-caret-down
+                ul.dropdown-menu(uib-dropdown-menu, role="menu")
+                  li.dropdown-header Unit
+                  li
+                    a(href="", ng-click="species.unit = 'mg'") mg
+                  li
+                    a(href="", ng-click="species.unit = 'g'") g
+        tbody
+          tr(ng-repeat="m in species.measurements track by $index")
+            td.text-center
+              a(ng-click="dataset.removeMeasurement(species, $index)", href="")
+                i.fa.fa-times
+                
+            td(ng-if="species.category_range == 'category'")
+              input.new-measurement-input.form-control(type='text' ng-model='m.category' spellcheck="false")
+              
+            td(ng-if="species.category_range == 'range'")
+              input.new-measurement-range.form-control(type='text' ng-model='m.min' spellcheck="false")
+            td(ng-if="species.category_range == 'range'")
+              input.new-measurement-range.form-control(type='text' ng-model='m.max' spellcheck="false")
+            td(ng-if="species.category_range == 'range'")
+              input.new-measurement-range.form-control(type='text' ng-model='m.unit' spellcheck="false")
+              
+              
+            td
+              .input-group
+                .input-group-btn
+                  button.btn.new-measurement-btn(ng-click="m.wet = !m.wet" \
+                                              ng-class="{ 'btn-primary': m.wet, \
+                                                          'btn-default': !m.wet }")
+                    i.fa.fa-tint
+                input.new-measurement-input.form-control(type='text' ng-model='m.biomass' spellcheck="false" placeholder="NA")
+
+.details-section
+  span Existing Measurements
+  .pull-right
+    a(href="", ng-click="dataset.new()")
+      i.fa.fa-plus-square-o
+      |  Add species 
+    a(href="", ng-click="dataset.removeAll()", ng-if="dataset.measurements.length > 0")
+      i.fa.fa-times(style="margin-left: 5px")
+      |  Remove all
+      
+.details-content
+  .no-data-sm(ng-if="dataset.measurements.length == 0")
+    p
+      i.fa.fa-question
+      span No measurements for this dataset yet
+  .box.box-default.measurement-box(ng-repeat="species in dataset.measurements")
+    .box-header
+      h3.box-title
+        i.fa.fa-bug
+        a(href="", ng-click="dataset.showSpecies(species.species_id)", style="margin-right: 2px")
+          | {{species.bwg_name}}
+        a.remove-x(href="", ng-click="dataset.remove(species)")
+          i.fa.fa-times
+
+    .box-body.no-padding
+      span.category-range(ng-if="species.categories")
+        i.fa.fa-bars
+        |  Categories
+      span.category-range(ng-if="species.ranges")
+        i.fa.fa-arrows-v
+        |  Ranges
+      span.pull-right(style="margin-right: 5px")
+        button.btn.btn-xs.btn-default(ng-click="dataset.addMeasurement(!!species.categories, species.species_id)")
+          | Add a {{species.categories?'category':'range'}}
+      table.table.table-condensed.table-hover.measurement-table
+        thead
+          tr
+            th
+            th 
+            th {{species.categories?'Category':'Range'}}
+            th Wet
+            th Biomass
+        tbody
+          tr(ng-repeat="m in species.categories")
+            td.text-center
+              a(ng-click="dataset.edit(true, m)", href="")
+                i.fa.fa-pencil            
+            td.text-center
+              a(ng-click="dataset.deleteMeasurement(m.measurement_id)", href="")
+                i.fa.fa-times
+            td {{m.value}}
+            td
+              i.fa(ng-if="m.biomass" ng-class="{'fa-tint': m.biomass.dry_wet == 'wet'}")
+            td {{m.biomass.value || 'NA'}} 
+              span.th-unit(ng-if="m.biomass") {{m.biomass.unit}}
+          tr(ng-repeat="m in species.ranges")
+            td.text-center
+              a(ng-click="dataset.edit(false, m)", href="")
+                i.fa.fa-pencil
+            td.text-center
+              a(ng-click="dataset.deleteMeasurement(m.measurement_id)", href="")
+                i.fa.fa-times
+            td {{m.min}} - {{m.max}} 
+              span.th-unit {{m.unit}}
+            td
+              i.fa(ng-if="m.biomass" ng-class="{'fa-tint': m.biomass.dry_wet == 'wet'}")
+            td {{m.biomass.value || 'NA'}} 
+              span.th-unit(ng-if="m.biomass") {{m.biomass.unit}}
+  

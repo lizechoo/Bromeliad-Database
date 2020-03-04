@@ -1,0 +1,146 @@
+.dataset-list {
+  display: inline-block;
+}
+
+.no-dataset {
+  border: 5px dashed #ccc;
+  border-radius: 5px;
+  width: 300px;
+  height: 320px;
+  text-align: center;
+  padding-top: 90px;
+}
+
+.no-dataset > i {
+  display: block;
+  font-size: 4em;
+  color: #eee;
+}
+
+.no-dataset > h4 {
+  font-size: 1.5em;
+  color: #ccc;
+}
+
+.no-data-sm {
+  margin: 10px 10px 10px 10px;
+  border: 3px dashed #ccc;
+  border-radius: 3px;
+  right: 0;
+  height: 65px;
+  text-align: center;
+  padding-top: 15px;
+}
+
+.no-data-sm > p > i {
+  font-size: 1.5em;
+  color: #eee;
+  margin-right: 10px;
+}
+
+.no-data-sm > p > span {
+  font-size: 1.5em;
+  color: #ccc;
+  margin-right: 10px;
+}
+
+.content.fixed {
+  margin-top: 50px
+}
+
+.dataset-box {
+  display: inline-block;
+  width: 300px;
+  height: 220px;
+  margin: 10px 10px 15px 10px;
+}
+
+.dataset-prop {
+  padding: 5px 10px 5px 10px;
+  margin-bottom: 5px;
+  margin-right: 5px;
+  border: 1px solid #eee;
+  border-radius: 3px;
+  font-size: 1.0em;
+  background: #f7f7f7;
+  display: inline-block;
+  width: 48%;
+}
+
+.header-textbox {
+  display: inline-block;
+  width: 80%;
+  border: 0;
+  font-size: 1.5em;
+  outline: 0;
+}
+
+.header-icon {
+  font-size: 1.5em;
+  color: #999;
+  margin-right: 5px;
+}
+
+.table-controls {
+  height: 38px;
+}
+
+.table-controls > span {
+  margin-left: 10px;
+  vertical-align: middle;
+  line-height: 38px;
+  color: #999;
+}
+
+.table-controls > span > i {
+  margin-right: 5px;
+  font-size: 1.3em;
+}
+
+.table-controls > span > small {
+  margin-right: 5px;
+}
+
+.table-controls > span > a {
+  margin-left: 5px;
+  font-size: 0.7em;
+}
+
+.table-controls .pull-right .page-label {
+  display: inline-block;
+  border-left: 1px solid #e5e5e5;
+  line-height: 38px;
+  text-align: center;
+  vertical-align: middle;
+  min-width: 30px;
+  padding: 0 10px 0 10px;
+  white-space: nowrap;
+}
+
+.table-controls .pull-right .page-label.page-button:hover {
+  background: #eee;
+}
+
+.table-controls .pull-right .page-label.page-button.active {
+  background: #eee;
+}
+
+.table-controls .pull-right .pagination {
+  margin: 0;
+}
+
+.selector-table {
+  margin-bottom: 0px;
+}
+
+.selector-table > thead > tr > th {
+  white-space: nowrap;
+}
+
+.selector-table > tbody > tr > td {
+  white-space: nowrap;
+}
+
+.na {
+  color: #aaa;
+}

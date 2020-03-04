@@ -1,0 +1,45 @@
+div(ng-if="dataset.isEmpty(dataset.matrix.species) || dataset.isMissingBromeliads()")
+  .no-data-sm
+    p
+      i.fa.fa-question
+      span(ng-if="dataset.isEmpty(dataset.matrix.species)") No measurements for this dataset yet
+      span(ng-if="dataset.isMissingBromeliads()") No bromeliads for this dataset yet
+
+div(ng-if="!dataset.isEmpty(dataset.matrix.species) && !dataset.isMissingBromeliads()")
+  table.table.table-bordered.table-hover.matrix-table
+    thead
+      tr.header
+        th(colspan="1")
+          i.fa.fa-bug
+          | Species
+        th(colspan="{{dataset.bromeliads.length}}")
+          i.fa.fa-tree
+          | Bromeliads
+      tr
+        th Measurement
+        th(ng-repeat="bromeliad in dataset.bromeliads")
+          a(ng-click="dataset.showBromeliad(bromeliad.bromeliad_id)", href="")
+            | {{ bromeliad.original_id }}
+    tbody
+      tr.species(ng-repeat-start="(species_id, species) in dataset.matrix.species")
+        th(colspan="{{1+dataset.bromeliads.length}}")
+          i.fa.fa-bug
+          a(ng-click="dataset.showSpecies(species_id)", href="")
+            | {{species.bwg_name}}
+      tr(ng-repeat="(measurement_id, measurement) in species.measurements")
+        td(ng-if="measurement.category_range == 'category'")
+          | {{measurement.measurement.value}}
+        td(ng-if="measurement.category_range == 'range'")
+          | {{measurement.measurement.min}} - {{measurement.measurement.max}}
+          span.th-unit  {{measurement.measurement.unit}}
+        td(ng-repeat="bromeliad in dataset.bromeliads",
+        ng-class="{'na': !measurement.bromeliads[bromeliad.bromeliad_id] || \
+        measurement.bromeliads[bromeliad.bromeliad_id] == 'NA', \
+        'cell': dataset.isEditingMatrix()}")
+          span(ng-if="!dataset.isEditingMatrix()")
+            | {{measurement.bromeliads[bromeliad.bromeliad_id]}}
+          input.matrix-input(type="text", ng-if="dataset.isEditingMatrix()",
+          ng-model="dataset.MatrixF.editData[measurement_id].bromeliads[bromeliad.bromeliad_id]",
+          placeholder="NA")
+
+      tr(ng-repeat-end)

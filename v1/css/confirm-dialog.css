@@ -1,0 +1,50 @@
+.confirm-buttons {
+  display: inline-block;
+  line-height: 40px;
+  width: 50%;
+  text-align: center;
+}
+
+.full-button {
+  width: 100% !important;
+}
+
+.ok-button {
+  width: 100% !important;
+}
+
+.confirm-buttons:hover {
+  background-color: rgba(0,0,0,0.05);
+}
+
+.confirm-buttons:active {
+  background-color: rgba(0,0,0,0.15);
+}
+
+.confirm-buttons span {
+  color: #000 !important;
+}
+
+.confirm-buttons i {
+  color: #666 !important;
+  margin-right: 5px;
+}
+
+.confirm-left-button {
+  border-right: 1px solid #eee;
+}
+
+.confirm-left-button span {
+  vertical-align: middle;
+}
+
+.confirm-right-button {
+}
+
+.confirm-right-button span {
+  vertical-align: middle;
+}
+
+.confirm-disabled {
+  color: #999
+}

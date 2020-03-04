@@ -1,0 +1,30 @@
+.details-section
+  span 
+    |  Admin
+
+.details-content
+  .user-card(ng-repeat="user in admin.AdminF.usersList", ng-if="user.role == 'admin'",
+  ng-mouseover="hover[user.username] = true", ng-mouseleave="hover[user.username] = false")
+    img.default-avatar(ng-if="admin.getAvatar(user)", ng-src="{{admin.getAvatar(user)}}")
+    .default-avatar(ng-if="!admin.getAvatar(user)") {{admin.getInitials(user.name)}}
+    .card-details
+      a(href="", ng-click="admin.editUser(user)").user-name
+        | {{user.name}}
+      .user-username
+        | {{user.username}}
+    i.fa.fa-times(ng-show="hover[user.username]", ng-click="admin.delete(user.username)")
+
+.details-section
+  span 
+    |  Users
+
+.details-content
+  .user-card(ng-repeat="user in admin.AdminF.usersList", ng-if="user.role == 'user'",
+  ng-mouseover="hover[user.username] = true", ng-mouseleave="hover[user.username] = false")
+    .default-avatar {{admin.getInitials(user.name)}}
+    .card-details
+      a(href="", ng-click="admin.editUser(user)").user-name
+        | {{user.name}}
+      .user-username
+        | {{user.username}}
+    i.fa.fa-times(ng-show="hover[user.username]", ng-click="admin.delete(user.username)")

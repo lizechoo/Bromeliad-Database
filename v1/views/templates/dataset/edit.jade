@@ -1,0 +1,87 @@
+.modal-header
+  h3.modal-title
+    i.fa.fa-table
+    |  {{ dataset.edit? 'Edit' : 'New' }} Dataset
+.modal-body
+  .form-group
+    .row
+      .col-lg-9
+        label Name 
+          span.th-unit required
+        input.form-control(type='text', ng-model='dataset.data.name')
+      .col-lg-3
+        label Year 
+          span.th-unit required
+        input.form-control(type='text', ng-model='dataset.data.year')
+    .row
+      .col-lg-3
+        label Country 
+          span.th-unit required
+        select.form-control(ng-options="c as c for c in dataset.COUNTRIES" ng-model='dataset.data.country')
+      .col-lg-3
+        label Location 
+          span.th-unit required
+        input.form-control(type='text', ng-model='dataset.data.location')
+      .col-lg-6
+        label Geolocation 
+          span.th-unit DD
+        .row
+          .col-xs-6
+            .input-group
+              span.input-group-addon Lat
+              input.form-control(type='text', ng-model='dataset.data.lat', placeholder='NA')
+          .col-xs-6
+            .input-group
+              span.input-group-addon Lng
+              input.form-control(type='text', ng-model='dataset.data.lng', placeholder='NA')
+    .row
+      .col-xs-12
+        label Data owner
+        .row
+          .col-xs-6
+            .input-group
+              span.input-group-addon name
+              input.form-control(type='text', ng-model='dataset.data.owner_name', placeholder='NA')
+          .col-xs-6
+            .input-group
+              span.input-group-addon email
+              input.form-control(type='text', ng-model='dataset.data.owner_email', placeholder='NA')
+    .row
+      .col-xs-12
+        label Data owner 2
+        .row
+          .col-xs-6
+            .input-group
+              span.input-group-addon name
+              input.form-control(type='text', ng-model='dataset.data.owner2_name', placeholder='NA')
+          .col-xs-6
+            .input-group
+              span.input-group-addon email
+              input.form-control(type='text', ng-model='dataset.data.owner2_email', placeholder='NA')
+    .row
+      .col-xs-8
+        label Release dates
+        .row
+          .col-xs-6
+            .input-group
+              span.input-group-addon BWG
+              input.form-control(type='text', ng-model='dataset.data.bwg_release', placeholder='YYYY-MM-DD')
+          .col-xs-6
+            .input-group
+              span.input-group-addon public
+              input.form-control(type='text', ng-model='dataset.data.public_release', placeholder='YYYY-MM-DD')
+    .row
+      .col-xs-12
+        label Faculty supervisor
+        .row
+          .col-xs-6
+            .input-group
+              span.input-group-addon name
+              input.form-control(type='text', ng-model='dataset.data.faculty_name', placeholder='NA')
+          .col-xs-6
+            .input-group
+              span.input-group-addon email
+              input.form-control(type='text', ng-model='dataset.data.faculty_email', placeholder='NA')
+.modal-footer
+  button.btn.btn-default(ng-click='dataset.cancel()') Cancel
+  button.btn.btn-primary(ng-click='dataset.submit()') {{ edit? 'Update' : 'Submit' }}

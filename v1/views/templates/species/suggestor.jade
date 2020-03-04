@@ -1,0 +1,41 @@
+.box.box-primary.box-solid(style="margin-top: 150px")
+  .box-header
+    h3.box-title
+      i.fa.fa-magic
+      |  BWG code Suggestion
+  .box-body
+    p.text-mute
+      center This utility helps you find the next available BWG code
+    .row(style="margin-bottom: 10px")
+      .col-lg-7
+        input.form-control(type="text" placeholder="Enter a prefix to generate" ng-model="species.prefix")
+      .col-lg-3(ng-if="!species.generating")
+        button.btn.btn-primary(ng-click="species.getSuggestion(species.prefix)")
+          |  Generate
+      .col-lg-3(ng-if="species.generating")
+        button.btn.btn-primary.disabled
+          i.fa.fa-spin.fa-refresh
+          |  Generating
+    .row
+      .col-lg-12
+        p(style="color: #999; margin-left: 10px")
+          i.fa.fa-warning
+          |  Include "
+          b  .
+          | " after the prefix, for example Diptera.
+    .row(ng-if="species.suggestion && species.suggestion.length > 0" style="margin-left: 10px")
+      dl.dl-horizontal
+        dt
+          |  Next available BWG code
+        dd
+          |  {{ species.suggestion }}
+  .box-footer.no-padding
+    div(ng-if="!species.suggestion")
+      a.ok-button.confirm-buttons(ng-click="closeThisDialog()", href="")
+        span Cancel
+    div(ng-if="species.suggestion")
+      a.confirm-left-button.confirm-buttons(ng-click="closeThisDialog()", href="")
+        span Cancel
+      a.confirm-right-button.confirm-buttons(ng-click="confirm(species.suggestion)", href="")
+        span Use 
+          b {{ species.suggestion }}

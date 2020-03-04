@@ -1,0 +1,99 @@
+aside.right-side
+  .content-table-header
+    a.content-header-left
+      i.fa.fa-list-alt
+      |   Dataset
+    span(uib-dropdown, auto-close="outsideClick", dropdown-append-to-body="true")
+      a.content-header-left.button#sort-dropdown(uib-dropdown-toggle)
+        i.fa.fa-sort-alpha-asc
+        |   Sort
+        i.fa.fa-caret-down(style='margin-left: 5px')
+      ul.dropdown-menu(uib-dropdown-menu, aria-labelledby="sort-dropdown")
+        li.dropdown-header
+          |  Sort by
+        li(ng-repeat="entry in dataset.sortable", ng-class="{active: dataset.sortField == entry.field}")
+          a(ng-click="dataset.sort(entry.field)", href="")
+            i.fa(ng-class="entry.icon")
+            |  {{ entry.label }}
+        li.dropdown-header Order
+        li(ng-class="{active: dataset.orderBy == 'asc'}")
+          a(ng-click="dataset.order('asc')", href="")
+            i.fa.fa-sort-alpha-asc
+            |  Ascending
+        li(ng-class="{active: dataset.orderBy == 'desc'}")
+          a(ng-click="dataset.order('desc')", href="")
+            i.fa.fa-sort-alpha-desc
+            |  Descending
+    .pull-right
+      a.content-header-right.button(href="", ng-click="dataset.newDatasetDialog()")
+        i.fa.fa-plus
+        |   New
+
+  section.content.fixed
+    .dataset-list
+      .row
+        .col-xs-12
+          .callout.callout-info
+            h4 Datasets
+            p(ng-bind-html="dataset.help('+New')")
+
+      .no-dataset(ng-show="dataset.datasets.length == 0")
+        i.fa.fa-question
+        h4 No dataset found.
+        h4
+          a(href="", ng-click="dataset.newDatasetDialog()") Add
+          | a new dataset?
+
+      .box.box-default.dataset-box(ng-repeat="entry in dataset.datasets",
+      ng-class="{ 'box-success': entry.active }",
+      ng-mouseover="entry.active = true",
+      ng-mouseleave="entry.active = false")
+        .box-header
+          h3.box-title
+            i.fa.fa-table
+            |  {{ entry.name | characters: 15 }}
+          .box-tools.pull-right
+            span(uib-dropdown, on-toggle="toggled(open)")
+              button#simple-dropdown.btn.btn-sm.btn-default(uib-dropdown-toggle)
+                i.fa.fa-bars
+              ul.dropdown-menu(aria-labelledby="simple-dropdown",
+              style="min-width: 100px !important; right: 0; left: auto")
+                li
+                  a(ng-click="dataset.edit(entry)")
+                    i.fa.fa-pencil
+                    |  Edit
+                li
+                  a(ng-click="dataset.delete(entry)")
+                    i.fa.fa-times
+                    |  Delete
+        .box-body(no-padding)
+          div(style="width:100%")
+            .dataset-prop(ng-class="{ 'text-muted': !entry.country }")
+              i.fa.fa-globe(style="margin-right: 5px;")
+              |  {{ entry.country || 'NA' }}
+            .dataset-prop(ng-class="{ 'text-muted': !entry.location }")
+              i.fa.fa-map-marker(style="margin-right: 5px;")
+              |  {{ entry.location || 'NA' }}
+            .dataset-prop(ng-class="{ 'text-muted': !entry.year }")
+              i.fa.fa-calendar(style="margin-right: 5px;")
+              |  {{ entry.year || 'NA' }}
+        .box-footer.no-padding
+          a.confirm-buttons.confirm-left-button(ui-sref="species({dataset_id: entry.dataset_id})", href="")
+            i.fa.fa-bug
+            | Species
+            small.badge(style="background-color: #eee; color: #888") {{ entry.num_species }}
+
+          a.confirm-buttons.confirm-right-button(ui-sref="visit({dataset_id: entry.dataset_id})", href="")
+            i.fa.fa-map-marker
+            | Visits
+            small.badge(style="background-color: #eee; color: #888") {{ entry.num_visits }}
+
+        .box-footer.no-padding
+          a.confirm-buttons.confirm-left-button(ui-sref="bromeliad({dataset_id: entry.dataset_id})", href="")
+            i.fa.fa-tree
+            | Bromeliads
+            small.badge(style="background-color: #eee; color: #888") {{ entry.num_bromeliads }}
+
+          a.confirm-buttons.confirm-right-button(ui-sref="dataset-view.overview({dataset_id: entry.dataset_id})", href="")
+            i.fa.fa-info
+            | View this Dataset

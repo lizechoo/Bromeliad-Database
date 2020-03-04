@@ -1,0 +1,12 @@
+.box.box-primary.box-solid(style="margin-top: 150px")
+  .box-header
+    h3.box-title
+      i.fa.fa-upload 
+      span  Upload Bromeliad
+  .box-body
+    uploader(types="['csv', 'tsv']", max-size="100000", on-upload="bromeliad.onUpload(file)")
+  .box-footer.no-padding
+    a.confirm-left-button.confirm-buttons(ng-click="closeThisDialog()", href="")
+      span Cancel
+    a.confirm-right-button.confirm-buttons(ng-click="bromeliad.help()", href="")
+      span Help

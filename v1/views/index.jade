@@ -1,0 +1,103 @@
+doctype html
+html(ng-app='app')
+  head
+    meta(charset='UTF-8')
+    title Bromeliad Working Group Database | {{ main.pageTitle }}
+    //- meta(content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no', name='viewport')
+    link(href='styles/vendor.css', rel='stylesheet', type='text/css')
+    link(href='styles/app.css', rel='stylesheet', type='text/css')
+  body.fixed.skin-blue(ng-controller='MainC as main')
+    header.header
+      a.logo(href='index.html')
+        // Add the class icon to your logo image or logo icon to add the margining
+        i.glyphicon.glyphicon-tree-conifer
+        | BWGdb
+      // Header Navbar: style can be found in header.less
+      nav.navbar.navbar-static-top(role='navigation')
+        .navbar-right
+          ul.nav.navbar-nav
+            li.dropdown.user.user-menu
+              a.dropdown-toggle(data-toggle='dropdown')
+                i.glyphicon.glyphicon-user
+                span
+                  | {{ main.user.name }} 
+                  i.caret
+              ul.dropdown-menu
+                // User image
+                li.user-header.bg-light-blue
+                  img.img-circle.avatar-img(ng-src="{{main.userImage || 'img/bwg_logo.png'}}", 
+                  alt='User Image', ng-click="main.setAvatar()", 
+                  uib-tooltip="Change Profile Picture", href="")
+                  p
+                    | {{ main.user.name }}
+                    small {{ main.user.role | capital }}
+                li.user-footer
+                  .pull-left
+                    a.btn.btn-default.btn-flat(href='#', ng-click="main.setPassword()") Set password
+                  .pull-right
+                    a.btn.btn-default.btn-flat(href='#', ng-click='main.logout()') Sign out
+    .wrapper.row-offcanvas.row-offcanvas-left
+      // Left side column. contains the logo and sidebar
+      aside.left-side.sidebar-offcanvas
+        // sidebar: style can be found in sidebar.less
+        section.sidebar
+          // Sidebar user panel
+          .user-panel
+            .pull-left.image
+              img.img-circle(ng-src="{{main.userImage || 'img/bwg_logo.png'}}", 
+               ng-click="main.setAvatar()", uib-tooltip="Change Profile Picture", 
+               tooltip-placement="bottom-right", alt='User Image', href="")
+            .pull-left.info
+              p {{ main.user.name }}
+              a(href='#')
+                i.fa.fa-circle.text-success
+                |  {{main.user.role}}
+          // search form
+          //
+            <form action="#" method="get" class="sidebar-form">
+            <div class="input-group">
+            <input type="text" name="q" class="form-control" placeholder="Search..."/>
+            <span class="input-group-btn">
+            <button type='submit' name='seach' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
+            </span>
+            </div>
+            </form>
+          // /.search form
+          // sidebar menu: : style can be found in sidebar.less
+          ul.sidebar-menu
+            li(ui-sref-active="active")
+              a(ui-sref='dashboard')
+                i.fa.fa-dashboard
+                span Dashboard
+            li(ui-sref-active="active")
+              a(ui-sref='species')
+                i.fa.fa-bug
+                span Species
+            li(ui-sref-active="active")
+              a(ui-sref='dataset')
+                i.fa.fa-list-alt
+                span Datasets
+            li(ui-sref-active="active")
+              a(ui-sref='visit')
+                i.fa.fa-map-marker
+                span Visits
+            li(ui-sref-active="active")
+              a(ui-sref='bromeliad')
+                i.fa.fa-tree
+                span Bromeliads
+            li(ui-sref-active="active")
+              a(ui-sref='history')
+                i.fa.fa-history
+                span History
+            li(ui-sref-active="active", ng-show="main.user.role == 'admin'")
+              a(ui-sref='admin.users')
+                i.fa.fa-cog
+                span Admin Panel
+        // /.sidebar
+      div(ui-view="")
+    // ./wrapper
+    script(src='vendor.js')
+    script(src='path.js')
+    script(src='app.js')
+    script(src='dependencies.js')
+    script(src='templates.js')

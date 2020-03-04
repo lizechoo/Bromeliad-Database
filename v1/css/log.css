@@ -1,0 +1,92 @@
+.comment-box-tools {
+  margin-top: 5px;
+}
+
+.comment-box-tools > button {
+  margin-right: 10px;
+}
+
+.comment-item {
+  width: 100%;
+
+}
+
+.comment-item > a {
+  font-weight: bolder;
+  margin-right: 5px;
+}
+
+.comment-avatar {
+  width: 35px;
+  margin-right: 15px;
+}
+
+.comment.text {
+
+}
+
+.chat {
+  padding: 5px 20px 5px 10px;
+}
+.chat .item {
+  margin-bottom: 10px;
+}
+.chat .item:before,
+.chat .item:after {
+  display: table;
+  content: " ";
+}
+.chat .item:after {
+  clear: both;
+}
+.chat .item > img {
+  width: 40px;
+  height: 40px;
+  border: 2px solid transparent;
+  -webkit-border-radius: 50% !important;
+  -moz-border-radius: 50% !important;
+  border-radius: 50% !important;
+}
+.chat .item > img.online {
+  border: 2px solid #00a65a;
+}
+.chat .item > img.offline {
+  border: 2px solid #f56954;
+}
+.chat .item > .message {
+  margin-left: 55px;
+  margin-top: -40px;
+}
+.chat .item > .message > .name {
+  display: block;
+  font-weight: 600;
+}
+.chat .item > .attachment {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background: #f0f0f0;
+  margin-left: 65px;
+  margin-right: 15px;
+  padding: 10px;
+}
+.chat .item > .attachment > h4 {
+  margin: 0 0 5px 0;
+  font-weight: 600;
+  font-size: 14px;
+}
+.chat .item > .attachment > p,
+.chat .item > .attachment > .filename {
+  font-weight: 600;
+  font-size: 13px;
+  font-style: italic;
+  margin: 0;
+}
+.chat .item > .attachment:before,
+.chat .item > .attachment:after {
+  display: table;
+  content: " ";
+}
+.chat .item > .attachment:after {
+  clear: both;
+}

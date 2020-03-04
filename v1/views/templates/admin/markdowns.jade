@@ -1,0 +1,36 @@
+.row.tachet-box
+  .col-md-3
+    .box.box-primary.box-solid
+      .box-header
+        h3.box-title Articles
+      .box-body.no-padding
+        table.table.table-hover
+          tbody
+            tr(ng-repeat="m in admin.markdowns", ng-class="{ 'warning': m.type == admin.article }")
+              th 
+                a(ng-click="admin.showMarkdown(m.type)", href="")
+                  | {{ m.title }}
+  .col-md-9(ng-if="admin.article")
+    .box.box-primary
+      .box-header
+        h3.box-title Edit Article
+      .box-body
+        ul.nav.nav-tabs(style="margin-bottom: 5px;")
+          li(ng-class="{active: admin.view == 'write'}")
+            a(ng-click="admin.view = 'write'", href="") Write
+          li(ng-class="{active: admin.view == 'preview'}")
+            a(ng-click="admin.view = 'preview'", href="") Preview
+        div(ng-show="admin.view == 'write'")
+          button.btn.btn-sm.btn-default(ng-click="admin.uploadImage()")
+            i.fa.fa-picture-o
+            |  Upload Image
+          textarea.form-control(rows="20", ng-model="admin.markdown", 
+          style="margin-top: 5px")
+        div(marked="admin.markdown", ng-show="admin.view == 'preview'")
+      .box-footer
+        button.btn.btn-success(ng-click="admin.save()") Save Article
+        
+  .col-md-9(ng-if="!admin.article")
+    .no-data
+      i.fa.fa-chevron-left
+      h4 Select an article to edit

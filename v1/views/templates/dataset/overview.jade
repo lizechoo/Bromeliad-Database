@@ -1,0 +1,158 @@
+.details-section
+  span 
+    i.fa.fa-info
+    |  Details
+  
+.details-content
+  .details-box.dataset
+    .description 
+      i.fa.fa-globe
+      |  Country
+    .value {{ dataset.data.country || 'NA' }}
+    
+  .details-box.dataset
+    .description 
+      i.fa.fa-map-marker
+      |   Location
+    .value {{ dataset.data.location || 'NA' }}
+    
+  .details-box.dataset
+    .description 
+      i.fa.fa-calendar
+      |   Year
+    .value {{ dataset.data.year || 'NA' }}
+    
+  .details-box.dataset
+    .description 
+      i.fa.fa-location-arrow
+      |   Latitude
+    .value {{ dataset.data.lat?dataset.data.lat+'°':'NA' }}
+
+  .details-box.dataset
+    .description
+      i.fa.fa-location-arrow
+      |   Longitude
+    .value {{ dataset.data.lng?dataset.data.lng+'°':'NA' }}
+    
+.details-section
+  span 
+    i.fa.fa-info
+    |  Contacts
+    
+.details-content
+  .details-box.dataset(style="width: auto; !important")
+    .description
+      i.fa.fa-user
+      |  Owner 1 name
+    .value {{ dataset.data.owner_name || 'NA' }}
+    
+  .details-box.dataset(style="width: auto; !important") 
+    .description
+      i.fa.fa-envelope
+      |  Owner 1 email
+    .value {{ dataset.data.owner_email || 'NA' }}
+    
+  .details-box.dataset(style="width: auto; !important")
+    .description
+      i.fa.fa-user
+      |  Owner 2 name
+    .value {{ dataset.data.owner2_name || 'NA' }}
+    
+  .details-box.dataset(style="width: auto; !important") 
+    .description
+      i.fa.fa-envelope
+      |  Owner 2 email
+    .value {{ dataset.data.owner2_email || 'NA' }}
+    
+  .details-box.dataset
+    .description
+      i.fa.fa-calendar
+      |   BWG Release
+    .value {{ dataset.data.bwg_release || 'NA' }}
+    
+  .details-box.dataset
+    .description
+      i.fa.fa-calendar
+      |   Public Release
+    .value {{ dataset.data.public_release || 'NA' }}
+
+  .details-box.dataset(style="width: auto; !important")
+    .description
+      i.fa.fa-user
+      |   Faculty name
+    .value {{ dataset.data.faculty_name || 'NA' }}
+    
+  .details-box.dataset(style="width: auto; !important")
+    .description
+      i.fa.fa-envelope
+      |   Faculty email
+    .value {{ dataset.data.faculty_email || 'NA' }}
+  
+.details-section
+  span 
+    i.fa.fa-map-marker
+    |  Visits 
+  small.badge {{ dataset.visits.length }}
+  div.pull-right
+    a(href="", ui-sref="visit({dataset_id: dataset.dataset_id})")
+      i.fa.fa-plus-square-o 
+      |  Add or Edit Visits
+      
+.details-content.traits(style="max-height: 200px")
+  .no-data-sm(ng-if="dataset.visits.length == 0")
+    p
+      i.fa.fa-question
+      span No visits for this dataset
+  table.table.table-hover(ng-if="dataset.visits.length > 0", style="width: 100%")
+    thead
+      tr
+        th(ng-repeat="c in dataset.visitFields", ng-if="c.visible",
+        ng-hide="c.field == 'dataset_name'",
+        style="white-space: nowrap") {{c.title}} 
+          span.th-unit {{c.unit}}      
+    tbody
+      tr(ng-repeat="row in dataset.visits", 
+      ng-class="{ warning: dataset.isVisitSelected(row)}",
+      ng-click="dataset.toggleVisit(row)")
+        td(ng-repeat="c in dataset.visitFields", ng-if="c.visible",
+        ng-hide="c.field == 'dataset_name'",
+        ng-class="{ na: !row[c.field] || row[c.field] == 'NA' }")
+          | {{row[c.field] || 'NA'}}
+  
+.details-section
+  span 
+    i.fa.fa-tree
+    |  Bromeliads 
+  small.badge
+    | {{ dataset.getBromeliads().length }} 
+  small.badge.bg-yellow(ng-if="dataset.selectedVisit")
+    | Visit: {{ dataset.getSelectedVisit().habitat }}
+  small.badge(ng-if="dataset.hasBromeliads()")
+    | Select a visit to show only its bromeliads
+  div.pull-right
+    a(href="", ng-click="dataset.viewBromeliads()")
+      i.fa.fa-plus-square-o 
+      |  Add or Edit Bromeliads
+
+.details-content.traits(style="max-height: 200px")
+  .no-data-sm(ng-if="dataset.getBromeliads().length == 0")
+    p
+      i.fa.fa-question
+      span No bromeliads for {{dataset.selectedVisit?'selected visit':'this dataset'}}
+      
+  table.table.table-hover(ng-if="dataset.getBromeliads().length > 0", style="width: 100%")
+    thead
+      tr
+        th 
+        th(ng-repeat="c in dataset.bromeliadFields", ng-if="c.visible",
+        ng-hide="c.field == 'dataset_name'", style="white-space: nowrap") 
+          | {{c.title}} 
+          span.th-unit {{c.unit}}
+    tbody
+      tr(ng-repeat="row in dataset.getBromeliads()")
+        th
+          a(ng-click="dataset.showBromeliad(row.bromeliad_id)", href="") View
+        td(ng-repeat="c in dataset.bromeliadFields", ng-if="c.visible",
+        ng-hide="c.field == 'dataset_name'"
+        ng-class="{ na: !row[c.field] || row[c.field] == 'NA' }")
+          | {{row[c.field] || 'NA'}}

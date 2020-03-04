@@ -1,0 +1,54 @@
+aside.right-side
+  .content-nav-holder
+  .content-table
+    .content-table-header
+      a.content-header-left.button(href="", ng-click="dataset.back()")
+        i.fa.fa-chevron-left
+        |  Back
+      a.content-header-left.button(href="",
+      ui-sref="dataset-view.overview",
+      ui-sref-active="active")
+        i.fa.fa-table
+        |  Overview
+      a.content-header-left.button(href="",
+      ui-sref="dataset-view.measurements",
+      ui-sref-active="active")
+        i.fa.fa-arrows-h
+        |  Species
+      a.content-header-left.button(href="",
+      ui-sref="dataset-view.matrix",
+      ui-sref-active="active")
+        i.fa.fa-bug
+        |  Abundance Matrix
+      .pull-right(ng-if="dataset.$state.current.name != 'dataset-view.matrix'")
+        a.content-header-right.button(href="", ng-click="dataset.edit()")
+          i.fa.fa-pencil
+          |   Edit Dataset
+      .pull-right(ng-if="dataset.$state.current.name == 'dataset-view.matrix' && !dataset.isMissingBromeliads()")
+        a.content-header-right.button.active(href="", ng-click="dataset.editMatrix()",
+        ng-if="!dataset.isEditingMatrix()")
+          i.fa.fa-pencil
+          |   Edit Matrix
+        a.content-header-right.button.edit(href="", ng-click="dataset.editMatrix(true)",
+        ng-if="dataset.isEditingMatrix()")
+          i.fa.fa-check
+          |   Finish Editing
+        a.content-header-right.button(href="", ng-click="dataset.offline()",
+        ng-if="dataset.isEditingMatrix()")
+          i.fa.fa-cloud-download
+          |   Edit as CSV
+  .details-hero.dataset(ng-if="dataset.$state.current.name != 'dataset-view.matrix'")
+    .details-hero-icon
+      i.fa.fa-table
+    .details-hero-name
+      .description Dataset
+      div(style="width: 150px;")
+        .value {{ dataset.data.name }}
+
+  .details-hero.dataset.sm(ng-if="dataset.$state.current.name == 'dataset-view.matrix'")
+    .details-hero-icon.sm
+      i.fa.fa-table
+    .details-hero-name.sm
+      .value {{ dataset.data.name }}
+
+  div(ui-view="")
